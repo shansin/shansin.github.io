@@ -10,6 +10,9 @@ export default function Footer() {
                     &copy; {currentYear} Shantanu Singh
                 </div>
                 <div className={styles.links}>
+                    <a href="https://github.com/shansin" target="_blank" rel="noopener noreferrer" className={styles.link}>
+                        Github
+                    </a>
                     <a href="https://www.strava.com/athletes/142796564" target="_blank" rel="noopener noreferrer" className={styles.link}>
                         Strava
                     </a>
