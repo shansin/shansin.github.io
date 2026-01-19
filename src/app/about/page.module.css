@@ -1,0 +1,24 @@
+.article {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) 0;
+}
+
+.backLink {
+    display: inline-block;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.backLink:hover {
+    color: var(--text-primary);
+}
+
+.content h1 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}

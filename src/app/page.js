@@ -8,7 +8,7 @@ export default async function Home() {
 
   return (
     <main className="container">
-      <Intro contentHtml={introData.contentHtml} />
+      <Intro contentHtml={introData.contentHtml} title={introData.title} />
       <BlogList posts={allPosts} />
     </main>
   );
