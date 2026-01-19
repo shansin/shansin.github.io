@@ -6,6 +6,29 @@ import html from 'remark-html';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
+// Reuses getMarkdownContent but specific for posts
+export async function getPostData(id) {
+    const fullPath = path.join(contentDirectory, `posts/${id}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { content, data } = matter(fileContents);
+
+    const processedContent = await remark()
+        .use(html)
+        .process(content);
+    const contentHtml = processedContent.toString();
+
+    // Serialize date
+    if (data.date && data.date instanceof Date) {
+        data.date = data.date.toISOString().split('T')[0];
+    }
+
+    return {
+        id,
+        contentHtml,
+        ...data,
+    };
+}
+
 export async function getMarkdownContent(relativePath) {
     const fullPath = path.join(contentDirectory, relativePath);
     const fileContents = fs.readFileSync(fullPath, 'utf8');

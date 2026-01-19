@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './BlogList.module.css';
+import Link from 'next/link';
 
 export default function BlogList({ posts }) {
     const [selectedTag, setSelectedTag] = useState(null);
@@ -50,17 +51,19 @@ export default function BlogList({ posts }) {
 
             <div className={styles.postList}>
                 {filteredPosts.map(post => (
-                    <article key={post.id} className={styles.post}>
-                        <h2 className={styles.postTitle}>{post.title}</h2>
-                        <div className={styles.postDate}>{post.date}</div>
-                        <div className={styles.postTags}>
-                            {post.tags?.map(tag => (
-                                <span key={tag} className={styles.tag} style={{ cursor: 'default' }}>
-                                    #{tag}
-                                </span>
-                            ))}
-                        </div>
-                    </article>
+                    <Link key={post.id} href={`/posts/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <article className={styles.post}>
+                            <h2 className={styles.postTitle}>{post.title}</h2>
+                            <div className={styles.postDate}>{post.date}</div>
+                            <div className={styles.postTags}>
+                                {post.tags?.map(tag => (
+                                    <span key={tag} className={styles.tag} style={{ cursor: 'default' }}>
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </article>
+                    </Link>
                 ))}
                 {filteredPosts.length === 0 && (
                     <p style={{ color: 'var(--text-secondary)' }}>No posts found.</p>
