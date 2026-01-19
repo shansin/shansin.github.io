@@ -8,10 +8,17 @@ export const metadata = {
   description: "My personal corner of the internet.",
 };
 
+import Footer from "@/components/Footer";
+
+// ...
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div style={{ flex: 1 }}>{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }
