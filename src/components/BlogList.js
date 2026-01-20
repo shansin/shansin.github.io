@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';
 
@@ -8,16 +8,22 @@ export default function BlogList({ posts }) {
     const [selectedTag, setSelectedTag] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Extract all unique tags
-    const allTags = Array.from(new Set(posts.flatMap(post => post.tags || [])));
+    // Extract all unique tags - memoized to avoid recalculation on every render
+    const allTags = useMemo(() =>
+        Array.from(new Set(posts.flatMap(post => post.tags || []))),
+        [posts]
+    );
 
-    const filteredPosts = posts.filter(post => {
-        const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
-        const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    // Filter posts - memoized to avoid recalculation when unrelated state changes
+    const filteredPosts = useMemo(() => {
+        return posts.filter(post => {
+            const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
+            const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
-        return matchesTag && matchesSearch;
-    });
+            return matchesTag && matchesSearch;
+        });
+    }, [posts, selectedTag, searchQuery]);
 
     return (
         <section className={styles.container}>

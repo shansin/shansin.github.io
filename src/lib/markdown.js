@@ -6,15 +6,16 @@ import html from 'remark-html';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
+// Create a single reusable remark processor instance for better performance
+const remarkProcessor = remark().use(html);
+
 // Reuses getMarkdownContent but specific for posts
 export async function getPostData(id) {
     const fullPath = path.join(contentDirectory, `posts/${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(fileContents);
 
-    const processedContent = await remark()
-        .use(html)
-        .process(content);
+    const processedContent = await remarkProcessor.process(content);
     const contentHtml = processedContent.toString();
 
     // Serialize date
@@ -34,9 +35,7 @@ export async function getMarkdownContent(relativePath) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(fileContents);
 
-    const processedContent = await remark()
-        .use(html)
-        .process(content);
+    const processedContent = await remarkProcessor.process(content);
     const contentHtml = processedContent.toString();
 
     return {

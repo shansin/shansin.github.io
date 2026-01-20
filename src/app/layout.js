@@ -1,7 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap', // Prevent FOIT (Flash of Invisible Text)
+});
 
 export const metadata = {
   title: "Shantanu's Corner",
