@@ -9,6 +9,12 @@ const nextConfig = {
     // Remove console.log in production
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  // Performance optimizations
+  productionBrowserSourceMaps: false,
+  compress: true,
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 export default nextConfig;

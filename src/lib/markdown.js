@@ -9,8 +9,18 @@ const contentDirectory = path.join(process.cwd(), 'content');
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark().use(html);
 
+// Cache for processed markdown content to improve performance
+const contentCache = new Map();
+
 // Reuses getMarkdownContent but specific for posts
 export async function getPostData(id) {
+    const cacheKey = `post-${id}`;
+    
+    // Check cache first
+    if (contentCache.has(cacheKey)) {
+        return contentCache.get(cacheKey);
+    }
+    
     const fullPath = path.join(contentDirectory, `posts/${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(fileContents);
@@ -23,14 +33,26 @@ export async function getPostData(id) {
         data.date = data.date.toISOString().split('T')[0];
     }
 
-    return {
+    const result = {
         id,
         contentHtml,
         ...data,
     };
+    
+    // Cache the result
+    contentCache.set(cacheKey, result);
+    
+    return result;
 }
 
 export async function getMarkdownContent(relativePath) {
+    const cacheKey = `content-${relativePath}`;
+    
+    // Check cache first
+    if (contentCache.has(cacheKey)) {
+        return contentCache.get(cacheKey);
+    }
+    
     const fullPath = path.join(contentDirectory, relativePath);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(fileContents);
@@ -38,10 +60,15 @@ export async function getMarkdownContent(relativePath) {
     const processedContent = await remarkProcessor.process(content);
     const contentHtml = processedContent.toString();
 
-    return {
+    const result = {
         contentHtml,
         ...data,
     };
+    
+    // Cache the result
+    contentCache.set(cacheKey, result);
+    
+    return result;
 }
 
 export function getAllPosts() {

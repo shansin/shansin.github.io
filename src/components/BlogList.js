@@ -1,12 +1,31 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
+import React from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';
 
-export default function BlogList({ posts }) {
+// Debounce hook
+function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useMemo(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay]);
+
+    return debouncedValue;
+}
+
+function BlogList({ posts }) {
     const [selectedTag, setSelectedTag] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
     // Extract all unique tags - memoized to avoid recalculation on every render
     const allTags = useMemo(() =>
@@ -18,12 +37,14 @@ export default function BlogList({ posts }) {
     const filteredPosts = useMemo(() => {
         return posts.filter(post => {
             const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
-            const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+            const matchesSearch = debouncedSearchQuery && (
+                post.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+                post.tags?.some(tag => tag.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
+            );
 
-            return matchesTag && matchesSearch;
+            return matchesTag && (matchesSearch || !debouncedSearchQuery);
         });
-    }, [posts, selectedTag, searchQuery]);
+    }, [posts, selectedTag, debouncedSearchQuery]);
 
     return (
         <section className={styles.container}>
@@ -79,3 +100,5 @@ export default function BlogList({ posts }) {
         </section>
     );
 }
+
+export default React.memo(BlogList);
