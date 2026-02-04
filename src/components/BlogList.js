@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import React from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
-    useMemo(() => {
+    useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedValue(value);
         }, delay);
