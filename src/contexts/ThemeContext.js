@@ -4,21 +4,27 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    // Check localStorage first, then system preference
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme');
-      if (stored) return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  // Always start with 'dark' to match SSR - prevents hydration mismatch
+  const [theme, setTheme] = useState('dark');
+  const [mounted, setMounted] = useState(false);
+
+  // Load saved theme preference after mount (client-side only)
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    if (stored) {
+      setTheme(stored);
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setTheme('light');
     }
-    return 'dark';
-  });
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');

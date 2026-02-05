@@ -92,3 +92,52 @@
     display: flex;
     gap: var(--spacing-sm);
 }
+
+/* Post with cover image - horizontal layout */
+.postWithImage {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+}
+
+@media (min-width: 600px) {
+    .postWithImage {
+        flex-direction: row;
+    }
+}
+
+.postImageWrapper {
+    flex-shrink: 0;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+@media (min-width: 600px) {
+    .postImageWrapper {
+        width: 200px;
+        height: auto;
+        min-height: 160px;
+    }
+}
+
+.postImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.post:hover .postImage {
+    transform: scale(1.05);
+}
+
+.postContent {
+    flex: 1;
+}
+
+/* Only add padding to postContent when inside a post with image (since parent has padding: 0) */
+.postWithImage .postContent {
+    padding: var(--spacing-lg);
+}

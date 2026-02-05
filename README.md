@@ -70,6 +70,24 @@ tags: ["javascript", "react"]
 Your content here...
 ```
 
+### Draft Posts
+
+Mark a post as a draft to hide it from production builds while still being visible during development:
+
+```markdown
+---
+title: "Work in Progress"
+date: "2024-01-21"
+tags: ["drafts"]
+draft: true
+---
+```
+
+- **`npm run dev`** — Draft posts are visible
+- **`npm run build`** — Draft posts are excluded
+
+Remove `draft: true` when ready to publish.
+
 ### Update Intro or About
 
 Edit `content/intro.md` or `content/about.md`:
