@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import React from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 // Debounce hook
 function useDebounce(value, delay) {
@@ -47,20 +48,26 @@ function BlogList({ posts }) {
     }, [posts, selectedTag, debouncedSearchQuery]);
 
     return (
-        <section className={styles.container}>
+        <section className={styles.container} aria-labelledby="blog-heading">
+            <h2 id="blog-heading" className="visually-hidden">Blog Posts</h2>
             <div className={styles.controls}>
+                <label htmlFor="search-posts" className="visually-hidden">Search blog posts</label>
                 <input
+                    id="search-posts"
                     type="text"
                     placeholder="Search posts..."
                     className={styles.search}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label="Search posts by title or tags"
                 />
 
-                <div className={styles.tags}>
+                <div className={styles.tags} role="group" aria-label="Filter posts by tag">
                     <button
                         className={`${styles.tag} ${!selectedTag ? styles.active : ''}`}
                         onClick={() => setSelectedTag(null)}
+                        aria-pressed={!selectedTag}
+                        aria-label="Show all posts"
                     >
                         All
                     </button>
@@ -69,6 +76,8 @@ function BlogList({ posts }) {
                             key={tag}
                             className={`${styles.tag} ${selectedTag === tag ? styles.active : ''}`}
                             onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+                            aria-pressed={selectedTag === tag}
+                            aria-label={`Filter by tag: ${tag}`}
                         >
                             #{tag}
                         </button>
@@ -76,9 +85,9 @@ function BlogList({ posts }) {
                 </div>
             </div>
 
-            <div className={styles.postList}>
+            <div className={styles.postList} role="list">
                 {filteredPosts.map(post => (
-                    <Link key={post.id} href={`/posts/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link key={post.id} href={`/posts/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }} role="listitem" aria-label={`Read ${post.title}`}>
                         <article className={`${styles.post} ${post.coverImage ? styles.postWithImage : ''}`}>
                             {post.coverImage && (
                                 <div className={styles.postImageWrapper}>
@@ -86,12 +95,18 @@ function BlogList({ posts }) {
                                         src={post.coverImage}
                                         alt={post.title}
                                         className={styles.postImage}
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                 </div>
                             )}
                             <div className={styles.postContent}>
                                 <h2 className={styles.postTitle}>{post.title}</h2>
-                                <div className={styles.postDate}>{post.date}</div>
+                                <div className={styles.postMeta}>
+                                    <span className={styles.postDate}>{formatDate(post.date)}</span>
+                                    <span className={styles.separator}>•</span>
+                                    <span className={styles.readingTime}>{post.readingTime} min read</span>
+                                </div>
                                 <p className={styles.postExcerpt}>{post.excerpt}</p>
                                 <div className={styles.postTags}>
                                     {post.tags?.map(tag => (

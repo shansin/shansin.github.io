@@ -1,8 +1,11 @@
 .footer {
-    margin-top: auto;
+    position: sticky;
+    bottom: 0;
     padding: var(--spacing-md) 0;
     border-top: 1px solid var(--border);
     color: var(--text-secondary);
+    background-color: var(--bg-primary);
+    z-index: 100;
 }
 
 .content {

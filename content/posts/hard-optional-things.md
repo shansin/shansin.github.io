@@ -2,7 +2,7 @@
 title: "Optional Hard Things"
 date: "2026-02-04"
 tags: ["growth", "life"]
-coverImage: "/images/hard-optional-things.png"
+coverImage: "/images/hard-optional-things/hard-optional-things.png"
 draft: true
 ---
 

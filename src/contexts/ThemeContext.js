@@ -10,8 +10,11 @@ export function ThemeProvider({ children }) {
 
   // Load saved theme preference after mount (client-side only)
   useEffect(() => {
+    // Initialize theme from localStorage or system preference
+    // This pattern is intentional to prevent hydration mismatch in SSR
     const stored = localStorage.getItem('theme');
     if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(stored);
     } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');

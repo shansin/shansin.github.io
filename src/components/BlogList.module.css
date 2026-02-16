@@ -71,10 +71,17 @@
     margin-bottom: var(--spacing-sm);
 }
 
-.postDate {
+.postMeta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
     font-size: 0.875rem;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
+}
+
+.separator {
+    color: var(--muted);
 }
 
 .postExcerpt {

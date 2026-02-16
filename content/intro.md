@@ -2,4 +2,4 @@
 title: Shantanu's Corner
 ---
 
-This is the place where I share my thoughts, projects and musings.
+Exploring **local AI**, **systems engineering**, and **human endurance**. Expect notes on running, running LLMs at home, and lessons from the field.

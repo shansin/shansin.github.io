@@ -16,10 +16,18 @@
     letter-spacing: -0.02em;
 }
 
-.date {
+.meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
     color: var(--text-secondary);
     font-size: 1rem;
     margin-bottom: var(--spacing-md);
+}
+
+.separator {
+    color: var(--muted);
 }
 
 .tags {
@@ -112,4 +120,8 @@
 
 .backLink:hover {
     color: var(--text-primary);
+}
+
+.footer {
+    margin-top: var(--spacing-xl);
 }

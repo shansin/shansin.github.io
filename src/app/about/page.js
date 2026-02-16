@@ -3,8 +3,8 @@ import Link from 'next/link';
 import styles from './page.module.css';
 
 export const metadata = {
-    title: 'About Me',
-    description: 'Learn more about Shantanu.',
+    title: 'About',
+    description: 'Software engineer exploring local AI, endurance sports, and the messy reality of building things that break.',
 };
 
 export default async function About() {
