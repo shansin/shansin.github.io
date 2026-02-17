@@ -4,7 +4,7 @@ title: About
 
 ## Hi, I'm Shantanu.
 
-I'm a US-based engineer in Big Tech, currently obsessed with running powerful AI models locally. When I'm not optimizing for VRAM or debugging model weights, I'm likely training for my next endurance event.
+I'm a US-based engineer in Big Tech, currently obsessed with running powerful AI models locally. When I'm not optimizing for VRAM or debugging system errors, I'm likely training for my next endurance event.
 
 ### Why This Blog?
 

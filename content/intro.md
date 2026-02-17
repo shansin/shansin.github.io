@@ -1,5 +1,5 @@
 ---
-title: Shantanu's Corner
+title: The Unswept Corner
 ---
 
-Exploring **local AI**, **systems engineering**, and **human endurance**. Expect notes on running, running LLMs at home, and lessons from the field.
+I document and share my learnings here. Some of them may be useful to you!
