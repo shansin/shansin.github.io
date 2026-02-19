@@ -1,4 +1,4 @@
-# Shantanu's Corner
+# Systems and Strides
 
 My personal website built with **Next.js App Router**, featuring a blog with real-time filtering, dark/light theme support, and markdown-powered content.
 

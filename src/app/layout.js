@@ -16,7 +16,7 @@ const siteUrl = 'https://shsin.github.io';
 export const metadata = {
   title: {
     template: '%s | Shantanu Singh',
-    default: "Shantanu's Corner",
+    default: "Systems and Strides",
   },
   description: "Personal blog about AI, engineering and endurance activities.",
   keywords: ['AI', 'machine learning', 'engineering', 'endurance', 'blog', 'software engineering'],
@@ -30,17 +30,17 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Shantanu's Corner",
+    title: "Systems and Strides",
     description: "Personal blog about AI, engineering and endurance activities.",
     url: siteUrl,
-    siteName: "Shantanu's Corner",
+    siteName: "Systems and Strides",
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     creator: '@shantanu_singh',
-    title: "Shantanu's Corner",
+    title: "Systems and Strides",
     description: "Personal blog about AI, engineering and endurance activities.",
   },
   robots: {

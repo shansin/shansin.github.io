@@ -5,7 +5,7 @@ export const dynamic = 'force-static';
 export async function GET() {
   const baseUrl = 'https://shsin.github.io';
   const posts = getAllPosts();
-  
+
   // Get full content for each post
   const postsWithContent = await Promise.all(
     posts.map(async (post) => {
@@ -23,7 +23,7 @@ export async function GET() {
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Shantanu's Corner</title>
+    <title>Systems and Strides</title>
     <link>${baseUrl}</link>
     <description>Personal blog about AI, engineering and endurance activities.</description>
     <language>en-us</language>

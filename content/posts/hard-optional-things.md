@@ -3,7 +3,7 @@ title: "Optional Hard Things"
 date: "2026-02-04"
 tags: ["growth", "life", "resilience"]
 coverImage: "/images/hard-optional-things/hard-optional-things.png"
-draft: true
+draft: false
 ---
 
 Easy things are easy. Paying bills, doing taxes, and feeding yourself are hard, but they are *mandatory* hard things. If you don't do them, the consequences are immediate and severe. But there is something magical about doing **hard optional things**.
@@ -51,4 +51,4 @@ When life forces a struggle upon you (a layoff, an illness), it is suffering. Bu
 
 So, pick one hard optional thing today. Not because you have to, but because you don't. That is where the magic lies.
 
-![Success through struggle](/images/hard-optional-things.png)
+![Success through struggle](/images/hard-optional-things/hard-optional-things.png)

@@ -7,12 +7,12 @@ import ShareButtons from '@/components/ShareButtons';
 export async function generateMetadata({ params }) {
     const { slug } = await params;
     const post = await getPostData(slug);
-    
+
     const baseUrl = 'https://shsin.github.io';
-    
+
     return {
         title: post.title,
-        description: post.excerpt || `Read ${post.title} on Shantanu's blog`,
+        description: post.excerpt || `Read ${post.title} on Systems and Strides`,
         keywords: post.tags,
         authors: [{ name: 'Shantanu Singh' }],
         alternates: {
@@ -20,9 +20,9 @@ export async function generateMetadata({ params }) {
         },
         openGraph: {
             title: post.title,
-            description: post.excerpt || `Read ${post.title} on Shantanu's blog`,
+            description: post.excerpt || `Read ${post.title} on Systems and Strides`,
             url: `${baseUrl}/posts/${slug}`,
-            siteName: "Shantanu's Corner",
+            siteName: "Systems and Strides",
             locale: 'en_US',
             type: 'article',
             publishedTime: post.date,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
             card: 'summary_large_image',
             creator: '@shantanu_singh',
             title: post.title,
-            description: post.excerpt || `Read ${post.title} on Shantanu's blog`,
+            description: post.excerpt || `Read ${post.title} on Systems and Strides`,
             ...(post.coverImage && {
                 images: [`${baseUrl}${post.coverImage}`],
             }),
