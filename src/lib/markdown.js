@@ -7,7 +7,83 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
 import DOMPurify from 'isomorphic-dompurify';
+import { visit } from 'unist-util-visit';
 import { calculateReadingTime } from './utils';
+
+// Remark plugin to convert @[youtube](VIDEO_ID) syntax into embedded iframes.
+// Remark's parser turns [youtube](VIDEO_ID) into a link node, so the paragraph
+// ends up as: textNode("@") + linkNode(url=VIDEO_ID, text="youtube").
+// We detect that pattern and replace the entire paragraph with an HTML embed.
+function remarkYouTubeEmbed() {
+    return (tree) => {
+        visit(tree, 'paragraph', (node, index, parent) => {
+            const children = node.children;
+            if (!children || children.length < 2) return;
+
+            // Look for pattern: text ending with "@" followed by a link with text "youtube"
+            for (let i = 0; i < children.length - 1; i++) {
+                const textNode = children[i];
+                const linkNode = children[i + 1];
+
+                if (
+                    textNode.type !== 'text' ||
+                    !textNode.value.endsWith('@') ||
+                    linkNode.type !== 'link' ||
+                    !linkNode.children ||
+                    linkNode.children.length !== 1 ||
+                    linkNode.children[0].type !== 'text' ||
+                    linkNode.children[0].value !== 'youtube'
+                ) {
+                    continue;
+                }
+
+                // Check that the "@" is the only content in the text node (or preceded only by whitespace)
+                const prefix = textNode.value.slice(0, -1).trim();
+                if (prefix !== '') continue;
+
+                const videoId = linkNode.url;
+
+                // Check for optional config in a following text node like {width: 80%, aspect-ratio: 4/3}
+                let width = '100%';
+                let aspectRatio = '16/9';
+                let consumeExtra = 0;
+
+                if (i + 2 < children.length && children[i + 2].type === 'text') {
+                    const configMatch = children[i + 2].value.match(/^\{([^}]+)\}/);
+                    if (configMatch) {
+                        consumeExtra = 1;
+                        const pairs = configMatch[1].split(',').map(s => s.trim());
+                        for (const pair of pairs) {
+                            const [key, val] = pair.split(':').map(s => s.trim());
+                            if (key === 'width') width = val;
+                            if (key === 'aspect-ratio') aspectRatio = val;
+                        }
+                    }
+                }
+
+                const htmlString = `
+        <div class="youtube-embed-wrapper" style="aspect-ratio: ${aspectRatio}; width: ${width}; max-width: 100%;">
+          <iframe 
+            src="https://www.youtube.com/embed/${videoId}" 
+            title="YouTube video player" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      `;
+
+                // Replace the entire paragraph with the HTML node
+                parent.children[index] = {
+                    type: 'html',
+                    value: htmlString
+                };
+
+                return; // Done with this paragraph
+            }
+        });
+    };
+}
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
@@ -16,10 +92,11 @@ const isDev = process.env.NODE_ENV === 'development';
 
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark()
+    .use(remarkYouTubeEmbed)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight)
-    .use(rehypeStringify);
+    .use(rehypeStringify, { allowDangerousHtml: true });
 
 // Cache for processed markdown content to improve performance
 // Using LRU (Least Recently Used) cache with size limit
@@ -61,7 +138,7 @@ export async function getPostData(id) {
 
     const processedContent = await remarkProcessor.process(content);
     const rawHtml = processedContent.toString();
-    
+
     // Sanitize HTML to prevent XSS attacks
     const contentHtml = DOMPurify.sanitize(rawHtml, {
         ALLOWED_TAGS: [
@@ -73,13 +150,15 @@ export async function getPostData(id) {
             'a', 'img',
             'table', 'thead', 'tbody', 'tr', 'th', 'td',
             'hr',
-            'span', 'div'
+            'span', 'div', 'iframe', 'video', 'source'
         ],
         ALLOWED_ATTR: [
             'href', 'title', 'target', 'rel',
             'src', 'alt', 'width', 'height',
             'class', 'id',
-            'language', 'className'
+            'language', 'className',
+            'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'type', 'controls',
+            'style'
         ]
     });
 
@@ -128,7 +207,7 @@ export async function getMarkdownContent(relativePath) {
 
     const processedContent = await remarkProcessor.process(content);
     const rawHtml = processedContent.toString();
-    
+
     // Sanitize HTML to prevent XSS attacks
     const contentHtml = DOMPurify.sanitize(rawHtml, {
         ALLOWED_TAGS: [
@@ -140,13 +219,15 @@ export async function getMarkdownContent(relativePath) {
             'a', 'img',
             'table', 'thead', 'tbody', 'tr', 'th', 'td',
             'hr',
-            'span', 'div'
+            'span', 'div', 'iframe', 'video', 'source'
         ],
         ALLOWED_ATTR: [
             'href', 'title', 'target', 'rel',
             'src', 'alt', 'width', 'height',
             'class', 'id',
-            'language', 'className'
+            'language', 'className',
+            'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'type', 'controls',
+            'style'
         ]
     });
 

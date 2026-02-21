@@ -251,3 +251,21 @@ code {
   white-space: nowrap;
   border: 0;
 }
+
+/* Custom YouTube Embed Settings */
+.youtube-embed-wrapper {
+  margin: var(--spacing-lg) 0;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 6px -1px var(--accent-glow), 0 2px 4px -2px var(--accent-glow);
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  position: relative;
+  display: flex; /* Helps eradicate whitespace beneath iframe */
+}
+
+.youtube-embed-wrapper iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
