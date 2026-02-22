@@ -85,6 +85,71 @@ function remarkYouTubeEmbed() {
     };
 }
 
+// Remark plugin to convert ```mermaid code blocks into <div class="mermaid"> elements.
+// This prevents rehype-highlight from syntax-highlighting Mermaid source and instead
+// outputs a div that the client-side Mermaid renderer can pick up.
+function remarkMermaid() {
+    return (tree) => {
+        visit(tree, 'code', (node, index, parent) => {
+            if (node.lang !== 'mermaid') return;
+
+            parent.children[index] = {
+                type: 'html',
+                value: `<div class="mermaid">${node.value}</div>`,
+            };
+        });
+    };
+}
+
+// Remark plugin to convert @[excalidraw](filename) into a <div> with data-scene.
+// The filename is resolved relative to content/posts/.
+// At build time the .excalidraw JSON is read, base64-encoded, and embedded so
+// the client-side ExcalidrawRenderer can decode & render it as SVG.
+function remarkExcalidraw() {
+    return (tree) => {
+        visit(tree, 'paragraph', (node, index, parent) => {
+            const children = node.children;
+            if (!children || children.length < 2) return;
+
+            // Pattern: textNode("@") + linkNode(text="excalidraw", url=filename)
+            const textNode = children[0];
+            const linkNode = children[1];
+
+            if (
+                textNode.type !== 'text' ||
+                !textNode.value.endsWith('@') ||
+                linkNode.type !== 'link' ||
+                !(linkNode.children?.[0]?.value === 'excalidraw')
+            ) {
+                return;
+            }
+
+            const filename = linkNode.url;
+            const filePath = path.join(process.cwd(), 'content', 'posts', filename);
+
+            let sceneB64 = '';
+            try {
+                const raw = fs.readFileSync(filePath, 'utf-8');
+                // Validate it's parseable JSON
+                JSON.parse(raw);
+                sceneB64 = Buffer.from(raw).toString('base64');
+            } catch (err) {
+                console.warn(`[remarkExcalidraw] Could not read ${filePath}:`, err.message);
+                parent.children[index] = {
+                    type: 'html',
+                    value: `<p style="color:red">⚠ Excalidraw file not found: ${filename}</p>`,
+                };
+                return;
+            }
+
+            parent.children[index] = {
+                type: 'html',
+                value: `<div class="excalidraw-diagram" data-scene="${sceneB64}"></div>`,
+            };
+        });
+    };
+}
+
 const contentDirectory = path.join(process.cwd(), 'content');
 
 // Check if we're in development mode
@@ -93,6 +158,8 @@ const isDev = process.env.NODE_ENV === 'development';
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark()
     .use(remarkYouTubeEmbed)
+    .use(remarkMermaid)
+    .use(remarkExcalidraw)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight)
@@ -158,7 +225,7 @@ export async function getPostData(id) {
             'class', 'id',
             'language', 'className',
             'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'type', 'controls',
-            'style'
+            'style', 'data-source', 'data-type', 'data-scene'
         ]
     });
 

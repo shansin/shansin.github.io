@@ -91,6 +91,12 @@ svg {
   filter: brightness(0) invert(1);
 }
 
+/* Exempt diagrams that handle their own dark themes */
+[data-theme="dark"] .mermaid svg,
+[data-theme="dark"] .excalidraw-diagram svg {
+  filter: none;
+}
+
 /* Utilities */
 .container {
   max-width: 800px;
@@ -133,11 +139,16 @@ pre {
   /* overflow-x: auto; Removed to allow wrapping */
   margin: 1.5rem 0;
   border: 1px solid var(--border);
-  white-space: pre-wrap;       /* css-3 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
 }
 
 code {
@@ -261,11 +272,58 @@ code {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border);
   position: relative;
-  display: flex; /* Helps eradicate whitespace beneath iframe */
+  display: flex;
+  /* Helps eradicate whitespace beneath iframe */
 }
 
 .youtube-embed-wrapper iframe {
   border: none;
   width: 100%;
   height: 100%;
+}
+
+/* Mermaid Diagrams */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .mermaid {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Excalidraw Diagrams */
+.excalidraw-diagram {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .excalidraw-diagram {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.excalidraw-diagram svg {
+  max-width: 100%;
+  height: auto;
 }
