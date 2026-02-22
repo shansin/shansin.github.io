@@ -78,7 +78,11 @@ export default function MermaidRenderer() {
                     }
                 });
 
-                await mermaid.run({ nodes: elements });
+                try {
+                    await mermaid.run({ nodes: elements });
+                } catch (error) {
+                    console.error("Mermaid parsing failed:", error);
+                }
             }
         }
 
