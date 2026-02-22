@@ -42,4 +42,4 @@ It feels good to be back in the BIOS. Now, if you’ll excuse me, I have some lo
 
 ---
 
-![Dual GPU Build](/images/dual_gpu_build.jpg)
+![Dual GPU Build](/images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg)

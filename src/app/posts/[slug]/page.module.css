@@ -1,8 +1,15 @@
 .article {
-    max-width: 680px;
+    max-width: 780px;
     margin: 0 auto;
     padding: var(--spacing-xl) 0;
 }
+
+@media (min-width: 1280px) {
+    .article {
+        max-width: 900px;
+    }
+}
+
 
 .header {
     margin-bottom: var(--spacing-xl);

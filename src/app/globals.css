@@ -99,9 +99,15 @@ svg {
 
 /* Utilities */
 .container {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
 }
 
 /* Syntax Highlighting */
