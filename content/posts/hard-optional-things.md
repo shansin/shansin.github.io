@@ -1,7 +1,7 @@
 ---
 title: "Optional Hard Things"
 date: "2026-02-04"
-tags: ["growth", "life", "resilience"]
+tags: ["growth", "resilience"]
 coverImage: "/images/hard-optional-things/hard-optional-things.png"
 draft: false
 ---

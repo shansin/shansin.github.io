@@ -13,6 +13,11 @@ const inter = Inter({
 
 const siteUrl = 'https://shsin.github.io';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = {
   title: {
     template: '%s | Shantanu Singh',
