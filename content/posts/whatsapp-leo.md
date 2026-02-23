@@ -15,6 +15,8 @@ That's Leo. See it in action:
 
 @[youtube](_m7avpUflfs){width: 45%, aspect-ratio: 9/16}
 
+[Github](https://github.com/shansin/whatsapp-leo)
+
 ## Why I Built This
 
 I already use WhatsApp to connect with family and friends—it's the most popular messaging app on the planet. What if I could manage my digital life on the same surface?
@@ -119,7 +121,7 @@ Here's the breakdown:
 | **Total** | **$0/month** |
 My best estimates to electricity costs tend towards less than $10/ year. 
 * Incremental for running service ~0W
-* Spikes during inference- 100w to 300w for a few seconds on 5070 Ti.
+* Spikes during inference- 100w to 300w for a few seconds on 5070 Ti
 * 5060 Ti is slower but even more efficient 
 
 The key insight: **modern open-source LLMs are good enough** for most assistant tasks. Models like GLM-4.7-Flash, gpt-oss:20b, and deepseek-r1:8b run on consumer hardware and deliver excellent results without per-token costs.

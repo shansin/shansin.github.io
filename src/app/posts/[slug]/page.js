@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
     const { slug } = await params;
     const post = await getPostData(slug);
 
-    const baseUrl = 'https://shsin.github.io';
+    const baseUrl = 'https://shsin.blog';
 
     return {
         title: post.title,
@@ -60,7 +60,7 @@ export async function generateStaticParams() {
 export default async function Post({ params }) {
     const { slug } = await params;
     const postData = await getPostData(slug);
-    const shareUrls = getShareUrls(postData.title, `https://shsin.github.io/posts/${slug}`);
+    const shareUrls = getShareUrls(postData.title, `https://shsin.blog/posts/${slug}`);
 
     return (
         <main className="container">
