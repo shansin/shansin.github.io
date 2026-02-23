@@ -80,3 +80,35 @@
     color: var(--text-secondary);
     font-style: italic;
 }
+
+@media (max-width: 640px) {
+    .article {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .article h1 {
+        font-size: 2rem;
+    }
+
+    .article h2 {
+        font-size: 1.5rem;
+    }
+
+    .article h3 {
+        font-size: 1.15rem;
+    }
+
+    .article p {
+        font-size: 1rem;
+    }
+
+    .article ul,
+    .article ol {
+        padding-left: var(--spacing-md);
+    }
+
+    .backLink {
+        display: inline-block;
+        padding: 0.5rem 0;
+    }
+}
