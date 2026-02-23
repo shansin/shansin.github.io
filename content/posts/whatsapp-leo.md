@@ -1,19 +1,19 @@
 ---
 title: Leo - My Zero-Cost, Privacy-First AI Assistant on WhatsApp
-date: 2026-02-21
+date: 2026-02-22
 tags:
   - local-ai
   - assistant
   - privacy
   - agents
 coverImage: /images/whatsapp-leo/leo.png
-draft: true
+draft: false
 ---
 Imagine an assistant that lives in your WhatsApp—handling ChatGPT-style queries, searching the web, managing your calendar, reading your emails, tracking your fitness, and reminding you of important tasks. Now imagine this assistant runs **entirely on your machine**, costs **zero dollars** in API fees, and keeps your data **completely private**.
 
-That's Leo. See it in action here:
+That's Leo. See it in action:
 
-[VIDEO DEMO PLACEHOLDER - YouTube link to be added]
+@[youtube](_m7avpUflfs){width: 45%, aspect-ratio: 9/16}
 
 ## Why I Built This
 
@@ -61,7 +61,7 @@ Never forget anything. Use natural language:
 ```
 #remindme in 30 minutes to call mom
 #remindme tomorrow at 9am to check emails
-#remindme at 5pm Feb 25, 2026 to submit the report
+#remindme at 12pm Feb 25, 2026 to complete taxes
 ```
 
 Leo parses your request intelligently and messages you at the right time.
@@ -73,6 +73,7 @@ Build better habits:
 ```
 #reminder add "9pm Sun to Thu" Review and adjust tomorrow's calendar
 #reminder add "12:30 pm Thursdays" Readup Weekly Review Doc
+#reminder help
 #reminder list
 #reminder remove <id>
 ```
@@ -83,19 +84,24 @@ This is where Leo shines. Create automated briefings that deliver exactly what y
 
 ```
 #briefing add "Morning Brief" "6:00am everyday" Get today's scheduled traning from Garmin, today's calendar events, and unread emails summary
+
 #briefing add "Evening Brief" "5:00pm everyday" Get unread emails summary and top 2 news from today
+
+#briefing help
+#briefing list
+#briefing remove <id>
 ```
 
 Wake up to a personalized digest—delivered right to WhatsApp.
 
-### Web search and google
+### Web Search and Google Services
 
 ```
 @leo, am I fee this Sat 5pm? if so add 2 hr block for Tom's bday
 
-#leo, what's the latest supreme court ruling on Tariffs?
+What's the latest supreme court ruling on Tariffs?
 
-@leo, do a deep research and summarize if Tarrifs are good or bad for US economy
+Do a deep research and summarize if Tariffs are good or bad for US economy
 ```
 
 ## Why Zero Cost Actually Works
@@ -131,34 +137,7 @@ Leo runs entirely on your local machine:
 
 ## Technical Architecture
 
-```mermaid
-graph TD
-    WA("📱 WhatsApp Network"):::entry
-    WA --> Bridge
-
-    subgraph Bridge [🔗 Go WhatsApp Bridge]
-        B1["whatsmeow — WhatsApp Web Protocol"]:::infra
-        B2["QR Auth · Message I/O · Media · SQLite"]:::infra
-    end
-
-    Bridge -->|🔒 Unix Socket| Agent
-
-    subgraph Agent [⚙️ Python Agent Server]
-        A1["OpenAI Agents SDK + Ollama LLM"]:::core
-        A2["Processing · LRU Cache · Schedulers"]:::core
-    end
-
-    Agent --> Brave("🔍 Brave Search"):::service
-    Agent --> Workspace("📄 Google Workspace"):::service
-    Agent --> Garmin("⌚ Garmin Connect"):::service
-
-    classDef entry fill:#059669,stroke:#047857,color:#ffffff,stroke-width:2px
-    classDef infra fill:#d97706,stroke:#b45309,color:#ffffff,stroke-width:2px
-    classDef core fill:#2563eb,stroke:#1d4ed8,color:#ffffff,stroke-width:2px
-    classDef service fill:#7c3aed,stroke:#6d28d9,color:#ffffff,stroke-width:2px
-```
-
-@[excalidraw](arch.excalidraw)
+@[excalidraw](public/images/whatsapp-leo/arch.excalidraw)
 
 ### Key Components
 
@@ -264,6 +243,3 @@ You don't have to choose between convenience and privacy. With Leo, you get both
 ---
 
 *Leo is open source. Your assistant, your data, your control.*
-
-
-@[youtube](NZ1mKAWJPr4)

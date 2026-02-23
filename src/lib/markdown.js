@@ -101,8 +101,9 @@ function remarkMermaid() {
     };
 }
 
-// Remark plugin to convert @[excalidraw](filename) into a <div> with data-scene.
-// The filename is resolved relative to content/posts/.
+// Remark plugin to convert @[excalidraw](path) into a <div> with data-scene.
+// The path is resolved relative to the project root (process.cwd()), so you can
+// reference files anywhere, e.g. public/images/whatsapp-leo/arch.excalidraw.
 // At build time the .excalidraw JSON is read, base64-encoded, and embedded so
 // the client-side ExcalidrawRenderer can decode & render it as SVG.
 function remarkExcalidraw() {
@@ -125,7 +126,7 @@ function remarkExcalidraw() {
             }
 
             const filename = linkNode.url;
-            const filePath = path.join(process.cwd(), 'content', 'posts', filename);
+            const filePath = path.join(process.cwd(), filename);
 
             let sceneB64 = '';
             try {
