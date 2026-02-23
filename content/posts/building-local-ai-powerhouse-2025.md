@@ -1,8 +1,9 @@
 ---
-title: "Building a Local AI Powerhouse in 2025"
-date: "2025-11-25"
-tags: ["local-ai"]
-coverImage: "/images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg"
+title: Building a Local AI Rig in 2025
+date: 2025-11-25
+tags:
+  - local-ai
+coverImage: /images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg
 draft: false
 ---
 
