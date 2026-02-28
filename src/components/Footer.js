@@ -28,9 +28,6 @@ export default function Footer() {
                     <a href="https://www.linkedin.com/in/singhshantanu/" target="_blank" rel="noopener noreferrer" className={styles.link} aria-label="LinkedIn profile">
                         LinkedIn
                     </a>
-                    <a href="https://x.com/shantanu_singh" target="_blank" rel="noopener noreferrer" className={styles.link} aria-label="X (Twitter) profile">
-                        X
-                    </a>
                 </nav>
             </div>
         </footer>

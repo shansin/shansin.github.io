@@ -38,15 +38,6 @@ export async function generateMetadata({ params }) {
                 }],
             }),
         },
-        twitter: {
-            card: 'summary_large_image',
-            creator: '@shantanu_singh',
-            title: post.title,
-            description: post.excerpt || `Read ${post.title} on Systems and Strides`,
-            ...(post.coverImage && {
-                images: [`${baseUrl}${post.coverImage}`],
-            }),
-        },
     };
 }
 

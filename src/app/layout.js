@@ -42,12 +42,6 @@ export const metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@shantanu_singh',
-    title: "Systems and Strides",
-    description: "Personal blog about AI, engineering and endurance activities.",
-  },
   robots: {
     index: true,
     follow: true,
