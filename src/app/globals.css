@@ -149,7 +149,6 @@ pre {
   background-color: var(--hljs-bg);
   padding: 1rem;
   border-radius: 8px;
-  /* overflow-x: auto; Removed to allow wrapping */
   margin: 1.5rem 0;
   border: 1px solid var(--border);
   white-space: pre-wrap;
@@ -179,7 +178,6 @@ code {
 
 .hljs {
   display: block;
-  /* overflow-x: auto; Removed to allow wrapping */
   background: var(--hljs-bg);
   color: var(--hljs-color);
   white-space: pre-wrap;

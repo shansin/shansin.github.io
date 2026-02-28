@@ -4,6 +4,7 @@ date: 2025-11-25
 tags:
   - local-ai
 coverImage: /images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg
+excerpt: "Building a dual-GPU AI workstation with RTX 5070 Ti and RTX 5060 Ti for running LLMs locally without API costs."
 draft: false
 ---
 

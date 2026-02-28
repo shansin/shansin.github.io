@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { siteConfig } from "@/lib/config";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,8 +11,6 @@ const inter = Inter({
   preload: true,
   fallback: ['system-ui', 'sans-serif'],
 });
-
-const siteUrl = 'https://shsin.github.io';
 
 export const viewport = {
   width: 'device-width',
@@ -23,11 +22,11 @@ export const metadata = {
     template: '%s | Shantanu Singh',
     default: "Systems and Strides",
   },
-  description: "Personal blog about AI, engineering and endurance activities.",
+  description: siteConfig.description,
   keywords: ['AI', 'machine learning', 'engineering', 'endurance', 'blog', 'software engineering'],
-  authors: [{ name: 'Shantanu Singh' }],
-  creator: 'Shantanu Singh',
-  metadataBase: new URL(siteUrl),
+  authors: [{ name: siteConfig.author }],
+  creator: siteConfig.author,
+  metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: '/',
     types: {
@@ -35,10 +34,10 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Systems and Strides",
-    description: "Personal blog about AI, engineering and endurance activities.",
-    url: siteUrl,
-    siteName: "Systems and Strides",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.title,
     locale: 'en_US',
     type: 'website',
   },
@@ -54,7 +53,7 @@ export const metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code', // Add your Google Search Console verification code
+    google: 'your-google-verification-code',
   },
 };
 

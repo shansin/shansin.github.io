@@ -3,6 +3,7 @@ title: "Optional Hard Things"
 date: "2026-02-04"
 tags: ["growth", "resilience"]
 coverImage: "/images/hard-optional-things/hard-optional-things.png"
+excerpt: "Exploring why optional hardships like cold showers, heavy lifting, and deep work build resilience and create lasting happiness."
 draft: false
 ---
 
@@ -40,7 +41,7 @@ But when you choose "Strategic Suffering"—voluntary exposure to difficulty—y
 *   **Cold showers** teach you to suppress the panic response.
 *   **Heavy lifting** teaches you that you can bear a load.
 *   **Deep work** teaches you that you can focus in a distracted world.
-*   **Running** teaches you everything thing there's to know about life.
+*   **Running** teaches you everything there's to know about life.
 
 These are optional. No one will fire you for not doing them. But doing them signals to your deepest self: *I am capable. I am strong. I can handle whatever comes.*
 

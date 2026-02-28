@@ -1,23 +1,12 @@
 import Link from 'next/link';
+import styles from './not-found.module.css';
 
 export default function NotFound() {
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '60vh',
-            textAlign: 'center',
-            gap: 'var(--spacing-md)'
-        }}>
-            <h2 style={{ fontSize: '3rem', fontWeight: 'bold' }}>404</h2>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-lg)' }}>Page not found</p>
-            <Link href="/" style={{
-                color: 'var(--accent)',
-                textDecoration: 'underline',
-                fontSize: '1.2rem'
-            }}>
+        <div className={styles.container}>
+            <h2 className={styles.title}>404</h2>
+            <p className={styles.message}>Page not found</p>
+            <Link href="/" className={styles.link}>
                 Return Home
             </Link>
         </div>

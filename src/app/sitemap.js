@@ -1,9 +1,10 @@
 import { getAllPosts } from '@/lib/markdown';
+import { siteConfig } from '@/lib/config';
 
 export const dynamic = 'force-static';
 
 export default async function sitemap() {
-  const baseUrl = 'https://shsin.github.io';
+  const baseUrl = siteConfig.url;
   
   // Get all posts
   const posts = getAllPosts();

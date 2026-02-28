@@ -7,6 +7,7 @@ tags:
   - privacy
   - agents
 coverImage: /images/whatsapp-leo/leo.png
+excerpt: "Meet Leo - a free, privacy-first AI assistant that runs entirely on your machine, integrates with WhatsApp, Google Workspace, and Garmin."
 draft: false
 ---
 Imagine an assistant that lives in your WhatsApp—handling ChatGPT-style queries, searching the web, managing your calendar, reading your emails, tracking your fitness, and reminding you of important tasks. Now imagine this assistant runs **entirely on your machine**, costs **zero dollars** in API fees, and keeps your data **completely private**.

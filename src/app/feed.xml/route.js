@@ -1,9 +1,10 @@
 import { getAllPosts, getPostData } from '@/lib/markdown';
+import { siteConfig } from '@/lib/config';
 
 export const dynamic = 'force-static';
 
 export async function GET() {
-  const baseUrl = 'https://shsin.github.io';
+  const baseUrl = siteConfig.url;
   const posts = getAllPosts();
 
   // Get full content for each post
@@ -23,22 +24,22 @@ export async function GET() {
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Systems and Strides</title>
+    <title>${siteConfig.title}</title>
     <link>${baseUrl}</link>
-    <description>Personal blog about AI, engineering and endurance activities.</description>
+    <description>${siteConfig.description}</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
     <generator>Next.js</generator>
-    <managingEditor>singhshantanu94@gmail.com (Shantanu Singh)</managingEditor>
-    <webMaster>singhshantanu94@gmail.com (Shantanu Singh)</webMaster>
+    <managingEditor>${siteConfig.email} (${siteConfig.author})</managingEditor>
+    <webMaster>${siteConfig.email} (${siteConfig.author})</webMaster>
     ${postsWithContent.map(post => `
     <item>
       <title><![CDATA[${post.title}]]></title>
       <link>${baseUrl}/posts/${post.id}</link>
       <guid isPermaLink="true">${baseUrl}/posts/${post.id}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
-      <dc:creator>Shantanu Singh</dc:creator>
+      <dc:creator>${siteConfig.author}</dc:creator>
       ${post.tags ? post.tags.map(tag => `<category>${tag}</category>`).join('\n      ') : ''}
       <description><![CDATA[${post.excerpt || ''}]]></description>
       <content:encoded><![CDATA[${post.contentHtml || ''}]]></content:encoded>

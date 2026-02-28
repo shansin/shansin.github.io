@@ -1,10 +1,11 @@
 ---
 title: "From Toy Debates to Full-Scale Engineering Team: A Journey Through CrewAI"
-date: 2025-12-31
+date: "2025-12-31"
 tags:
   - local-ai
   - agents
 coverImage: /images/crew-ai/crew-ai.png
+excerpt: "A journey through CrewAI - from simple debate agents to a full autonomous software engineering team, all running locally."
 draft: false
 ---
 

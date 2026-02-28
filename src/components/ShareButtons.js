@@ -1,20 +1,24 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './ShareButtons.module.css';
 
 export default function ShareButtons({ urls, title }) {
+    const [toastVisible, setToastVisible] = useState(false);
+
     const handleShare = (url, platform) => {
         if (platform === 'email') {
             window.location.href = url;
         } else {
-            window.open(url, '_blank', 'width=600,height=400');
+            window.open(url, '_blank');
         }
     };
 
     const copyToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+            setToastVisible(true);
+            setTimeout(() => setToastVisible(false), 2000);
         } catch (err) {
             console.error('Failed to copy:', err);
         }
@@ -64,6 +68,9 @@ export default function ShareButtons({ urls, title }) {
                     </svg>
                     <span>Copy Link</span>
                 </button>
+            </div>
+            <div className={`${styles.toast} ${toastVisible ? styles.visible : ''}`}>
+                Link copied to clipboard!
             </div>
         </div>
     );
