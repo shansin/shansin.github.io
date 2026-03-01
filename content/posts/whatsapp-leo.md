@@ -1,5 +1,5 @@
 ---
-title: Leo - My Zero-Cost, Privacy-First AI Assistant on WhatsApp
+title: "Leo - My Zero-Cost, Privacy-First AI Assistant on WhatsApp"
 date: 2026-02-22
 tags:
   - local-ai
@@ -34,7 +34,7 @@ Leo is the result.
 
 ### Intelligent Conversations
 
-Leo handles all the usual AI assistant tasks—answering questions, brainstorming, deep reseach, explaining concepts—powered by a local LLM.
+Leo handles all the usual AI assistant tasks—answering questions, brainstorming, deep research, explaining concepts—powered by a local LLM running on your own hardware. Each chat maintains its own conversation memory via SQLite-backed sessions, so Leo remembers what you discussed earlier.
 
 ### Web Search
 
@@ -42,7 +42,7 @@ Need current information? Leo connects to Brave Search to pull real-time data. A
 
 ### Google Workspace Integration
 
-Leo becomes a productivity powerhouse with wide ranging capabilities though google integration:
+Leo becomes a productivity powerhouse with wide-ranging capabilities through Google integration:
 
 | Service             | Capabilities                                       |
 | ------------------- | -------------------------------------------------- |
@@ -83,10 +83,10 @@ Build better habits:
 
 ### Scheduled Briefings
 
-This is where Leo shines. Create automated briefings that deliver exactly what you need, when you need it. You effectively control the prompt and it's execution schedule:
+This is where Leo shines. Create automated briefings that deliver exactly what you need, when you need it. You control the prompt and its execution schedule:
 
 ```
-#briefing add "Morning Brief" "6:00am everyday" Get today's scheduled traning from Garmin, today's calendar events, and unread emails summary
+#briefing add "Morning Brief" "6:00am everyday" Get today's scheduled training from Garmin, today's calendar events, and unread emails summary
 
 #briefing add "Evening Brief" "5:00pm everyday" Get unread emails summary and top 2 news from today
 
@@ -100,26 +100,38 @@ Wake up to a personalized digest—delivered right to WhatsApp.
 ### Web Search and Google Services
 
 ```
-@leo, am I fee this Sat 5pm? if so add 2 hr block for Tom's bday
+@leo, am I free this Sat 5pm? if so add 2 hr block for Tom's bday
 
 What's the latest supreme court ruling on Tariffs?
 
 Do a deep research and summarize if Tariffs are good or bad for US economy
 ```
 
+### Hooks — Bridge to External Programs
+
+Leo can route messages to external programs and receive responses back through bidirectional named pipes (FIFOs). Each hook creates two pipes: one for sending messages *to* the program, and one for receiving responses *from* it.
+
+Trigger a hook with `#hook-name message` or `@hook-name message`. For example, I have hooks for `claude` and `codex`—so I can type `#claude explain quantum computing` in WhatsApp and get a response from Claude, routed right back into the chat.
+
+This turns Leo into a message router that can bridge WhatsApp to virtually any program on your machine.
+
+### Test Mode — Local UI for Development
+
+Leo includes a local **Gradio** chat UI at `http://127.0.0.1:7860` that bypasses the WhatsApp bridge entirely. It features a model selector to hot-swap Ollama models at runtime and a live system log panel. All background schedulers (reminders, briefings) still run—so you can iterate on prompts without needing your phone.
+
 ## Why Zero Cost Actually Works
 
 Here's the breakdown:
 
-| Component | Cost |
-|-----------|------|
-| LLM (Ollama + local model) | $0 |
-| WhatsApp messaging | $0 (uses WhatsApp Web protocol) |
-| Brave Search (free tier) | $0 |
-| Google APIs | Free |
-| Garmin data access | Free |
-| Hosting | $0 (runs locally) |
-| **Total** | **$0/month** |
+| Component                  | Cost                            |
+| -------------------------- | ------------------------------- |
+| LLM (Ollama + local model) | $0                              |
+| WhatsApp messaging         | $0 (uses WhatsApp Web protocol) |
+| Brave Search (free tier)   | $0                              |
+| Google APIs                | Free                            |
+| Garmin data access         | Free                            |
+| Hosting                    | $0 (runs locally)               |
+| **Total**                  | **$0/month**                    |
 My best estimates to electricity costs tend towards less than $10/ year. 
 * Incremental for running service ~0W
 * Spikes during inference- 100w to 300w for a few seconds on 5070 Ti
@@ -127,7 +139,7 @@ My best estimates to electricity costs tend towards less than $10/ year.
 
 The key insight: **modern open-source LLMs are good enough** for most assistant tasks. Models like GLM-4.7-Flash, gpt-oss:20b, and deepseek-r1:8b run on consumer hardware and deliver excellent results without per-token costs.
 
-You already own the hardware, make it work for you :) 
+You already own the hardware—make it work for you :)
 
 ## The Privacy Advantage
 
@@ -141,6 +153,8 @@ Leo runs entirely on your local machine:
 ## Technical Architecture
 
 @[excalidraw](public/images/whatsapp-leo/arch.excalidraw)
+
+The system is split into two processes that talk over **Unix domain sockets** (paths configurable via `INSTANCE_GUID`), allowing multiple Leo instances on the same machine. The Go bridge handles the WhatsApp protocol while the Python server handles AI reasoning; neither exposes a network port.
 
 ### Key Components
 
@@ -164,6 +178,8 @@ Leo runs entirely on your local machine:
 - `workspace-mcp`: Google Workspace integration (Docs, Calendar, Gmail, Drive, Sheets, Slides)
 - `garmin-mcp`: Fitness and health data
 
+All three are launched as child processes using **stdio-based MCP** (Model Context Protocol)—they communicate with the agent server over stdin/stdout, not HTTP.
+
 ### Operating Modes
 
 Leo supports two modes:
@@ -172,12 +188,12 @@ Leo supports two modes:
 
 2. **Mention Mode**: Only responds when explicitly mentioned (`@leo` or `#leo`)—works with your existing WhatsApp account
 
-### Security Considerations
+### Access Control & Security
 
-- Unix domain sockets for inter-process communication (no network exposure)
-- Allowed senders whitelist for access control
-- Thread-local SQLite connections to avoid concurrency issues
-- Environment-based configuration for sensitive credentials
+- **Privileged whitelist** (`ALLOWED_SENDERS`): Only listed phone numbers get access to Google Workspace, Garmin, reminders, and briefings. Non-privileged users can still chat and use web search.
+- **Unix domain sockets** for inter-process communication—no network ports exposed
+- **Thread-local SQLite connections** to avoid concurrency issues
+- **Environment-based configuration** for all sensitive credentials
 
 ## Interesting Technical Details
 
@@ -213,14 +229,24 @@ WhatsApp uses LID (Linked ID) for privacy—a format that can't be used for send
 
 ## Getting Started
 
-_I built this on Ubuntu with nvidia gpus, but should work just the same on Mac and WSL_
+_I built this on Ubuntu with NVIDIA GPUs, but it should work just the same on Mac and WSL._
+
+**Prerequisites:** Python ≥ 3.13, [uv](https://docs.astral.sh/uv/), Go, [Ollama](https://ollama.com), and Node.js/npm.
 
 1. Clone the repository
 2. Install Ollama and pull a model: `ollama pull glm-4.7-flash`
-3. Configure your `.env` file with Brave Search API keys and settings
+3. Copy `.env_example` to `.env` and fill in your Brave Search API key, allowed senders, and other settings
 4. Run the services: `./start_services.sh`
 5. Scan the QR code to connect WhatsApp
 6. Start messaging Leo
+
+Want to try it without a phone? Run in test mode:
+
+```bash
+IS_TEST_MODE=true ./start_services.sh
+```
+
+Then open `http://127.0.0.1:7860` for the Gradio chat UI.
 
 ## What's Next
 
@@ -246,3 +272,4 @@ You don't have to choose between convenience and privacy. With Leo, you get both
 ---
 
 *Leo is open source. Your assistant, your data, your control.*
+*this post was updated on 2/28/2026*
