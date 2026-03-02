@@ -3,7 +3,7 @@ title: "Optional Hard Things"
 date: "2026-02-04"
 tags: ["growth", "resilience"]
 coverImage: "/images/hard-optional-things/hard-optional-things.png"
-excerpt: "Exploring why optional hardships like cold showers, heavy lifting, and deep work build resilience and create lasting happiness."
+excerpt: "Modern life decoupled reward from effort. Voluntary hardship — cold showers, heavy lifts, deep work — rewires the equation and builds lasting resilience."
 draft: false
 ---
 

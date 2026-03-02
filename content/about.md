@@ -4,13 +4,13 @@ title: About
 
 ## Hi, I'm Shantanu.
 
-I'm a US-based engineer in Big Tech, currently obsessed with running powerful AI models locally. When I'm not optimizing for VRAM or debugging system errors, I'm likely training for my next endurance event.
+I'm an engineer in Big Tech, based in the US. My current focus is building and running powerful AI models on local hardware — no APIs, no subscriptions, just raw compute under my own roof. When I step away from the terminal, I'm usually training for my next endurance event.
 
 ### Why This Blog?
 
-- **Learning in Public:** Writing forces clarity. If I can't explain it simply, I don't understand it well enough.
-- **The Real Process:** AI content often feels like a highlight reel. I document the messy reality—failed experiments, hardware bottlenecks, and lessons learned.
-- **Connection:** Whether you're into local AI, endurance sports, or the intersection of both, let's connect.
+- **Learning in public.** Writing demands clarity. If I can't explain something simply, I don't understand it well enough.
+- **The unfiltered process.** Most AI content reads like a highlight reel. I document the real work — failed experiments, hardware bottlenecks, and hard-won lessons.
+- **Connection.** Whether you're into local AI, endurance sports, or the overlap between the two, I'd like to hear from you.
 
 ### Find Me
 
