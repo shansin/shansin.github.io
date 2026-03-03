@@ -2,4 +2,4 @@
 title: Systems and Strides
 ---
 
-Where AI engineering meets endurance mindset. I build local AI systems, chase finish lines, and write about what I learn along the way.
+I document and share my learnings here. Some of the them may be useful to you too!

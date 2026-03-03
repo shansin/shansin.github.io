@@ -4,7 +4,7 @@ title: About
 
 ## Hi, I'm Shantanu.
 
-I'm an engineer in Big Tech, based in the US. My current focus is building and running powerful AI models on local hardware — no APIs, no subscriptions, just raw compute under my own roof. When I step away from the terminal, I'm usually training for my next endurance event.
+My current focus is building and running powerful AI models on local hardware — no APIs, no subscriptions, just raw compute under my own roof. When I step away from the terminal, I'm usually training for my next endurance event.
 
 ### Why This Blog?
 
@@ -15,7 +15,7 @@ I'm an engineer in Big Tech, based in the US. My current focus is building and r
 ### Find Me
 
 - [GitHub](https://github.com/shansin)
-- [LinkedIn](https://www.linkedin.com/in/singhshantanu/)
 - [Strava](https://www.strava.com/athletes/142796564)
+- [LinkedIn](https://www.linkedin.com/in/singhshantanu/)
 
-Or [email me](mailto:mailme.shantanu@gmail.com). I read everything.
+Or [email me](mailto:mailme.shantanu@gmail.com).
