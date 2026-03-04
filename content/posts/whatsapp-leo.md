@@ -1,5 +1,5 @@
 ---
-title: "Leo: A Privacy-First AI Assistant That Lives in WhatsApp"
+title: "Leo - My Zero-Cost, Privacy-First AI Assistant on WhatsApp"
 date: 2026-02-22
 tags:
   - local-ai
