@@ -1,5 +1,5 @@
 ---
-title: Claude Lens- The Missing Control Tower for Claude Code Agent Teams
+title: Claude Lens- The Control Tower for Claude Code Agent Teams
 date: 2026-03-03
 tags:
   - agents
@@ -22,6 +22,8 @@ It's a native desktop app that turns your `~/.claude/` directory into a sleek, r
 ![Claude Lens](/images/claude-lens/card-view-dark.png) Think of it as the GUI that Claude Code's multi-agent system desperately needed but never shipped with.
 
 I built it because I needed it. If you're a power user of Claude Code, you're going to need it too.
+
+[Github](https://github.com/shansin/claude-lens)
 
 ---
 ## The Problem: Flying Blind in a Swarm
