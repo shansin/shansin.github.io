@@ -4,7 +4,7 @@ title: About
 
 ## Hi, I'm Shantanu.
 
-My current focus is building and running powerful AI models on local hardware — no APIs, no subscriptions, just raw compute under my own roof. When I step away from the terminal, I'm usually training for my next endurance event.
+My current focus is building and running powerful AI models on local hardware. When I step away from the terminal, I'm usually training for my next endurance event.
 
 ### Why This Blog?
 

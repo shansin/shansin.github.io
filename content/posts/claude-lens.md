@@ -1,151 +1,180 @@
 ---
-title: Claude Lens- The Control Tower for Claude Code Agent Teams
+title: "Claude Lens: The Missing GUI for Claude Code's Multi-Agent System"
 date: 2026-03-03
 tags:
   - agents
   - claude
 coverImage: /images/claude-lens/cover.png
-excerpt: Claude Lens turns your `~/.claude/` directory into a sleek, real-time observability dashboard for Claude Code's multi-agent system.
+excerpt: I built a desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics — one window, zero JSON spelunking.
 draft: false
 ---
-You spin up a team of agents, watch them scatter into the depths of your codebase, tasks start flowing, tokens start burning—and you're left staring at a scrolling terminal wondering:
 
-*What is actually happening?*
-*How much is this costing me?*
-*Did that task even finish, or is the agent hallucinating in an infinite loop?*
+You spawn a team of six agents. They fan out across your codebase — refactoring modules, writing tests, updating docs. Tokens burn. Tasks fly. And you're left staring at a terminal, wondering:
 
-Welcome to the chaos of multi-agent development.
+*Is that agent stuck in a loop? How much has this cost me? Did the migration task actually finish?*
 
-Enter **Claude Lens**.
+There's no dashboard. No overview. Just raw `.jsonl` files and `~/.claude/tasks/` directories you'd have to `cat` like a caveman.
 
-It's a native desktop app that turns your `~/.claude/` directory into a sleek, real-time observability dashboard.
-![Claude Lens](/images/claude-lens/card-view-dark.png) Think of it as the GUI that Claude Code's multi-agent system desperately needed but never shipped with.
+So I built one.
 
-I built it because I needed it. If you're a power user of Claude Code, you're going to need it too.
+**Claude Lens** is a native desktop app that reads your `~/.claude/` directory and gives you a real-time control tower over everything Claude Code does — teams, agents, tasks, costs, conversations, settings, and system health.
 
-[Github](https://github.com/shansin/claude-lens)
+![Claude Lens — Card View](/images/claude-lens/card-view-dark.png)
 
----
-## The Problem: Flying Blind in a Swarm
+It's open source, it's free, and if you're running multi-agent Claude Code, you probably need it.
 
-Claude Code's agent team feature is basically magic. You can spawn a lead agent, watch it recruit teammates, assign them tasks, and coordinate a massive refactor while you sip your coffee.
-
-But once that swarm is unleashed, your visibility is reduced to:
-
-- A terminal output scrolling past faster than you can read.
-- Manually `cat`-ing JSON files in `~/.claude/tasks/` like a caveman.
-- Having absolutely no idea what your token spend is until the API bill arrives.
-- Zero way to comfortably browse past conversations without spelunking through `.jsonl` files.
-
-For a single-agent session, you can manage. For a team of 4–6 agents operating in parallel? It's unmanageable.
-
-Claude Lens gives you a single, glorious pane of glass over **everything**: teams, tasks, agents, costs, conversations, analytics, and system health. And it's all updated in real-time.
+[GitHub](https://github.com/shansin/claude-lens)
 
 ---
-## What Claude Lens Actually Does
 
-### Real-Time Team Monitoring (Choose Your Fighter)
+## Why I Built This
 
-The Teams view is the heart of Claude Lens, and we've got three distinct layouts based on how your brain works:
+For single-agent sessions, the terminal is fine. But the moment you use Claude Code's team feature — a lead agent recruiting teammates, assigning tasks, coordinating across files — your visibility drops to zero.
 
-- **Card View**: A clean, responsive grid of team cards. Progress bars, agent counts, task lists, and cost breakdowns at a single glance.
-- **Graph View**: This is the eye candy. Built on React Flow, it renders your entire team topology as an interactive, animated node graph. Violet edges for team-agent links, animated blue pulses for in-progress tasks, and dashed orange for blocking dependencies. Zoom, pan, and click to inspect. It's the ultimate way to untangle complex dependency chains.
-- **Split View**: The pragmatist's layout. Graph on the left, juicy details and task lists on the right.
+Here's what "monitoring" looked like before:
+
+- Terminal output scrolling faster than you can read
+- Manually inspecting JSON task files to check status
+- No idea what your token spend is until the API bill arrives
+- Digging through `.jsonl` files to find what an agent said two days ago
+
+Claude Lens replaces all of that with a single window.
+
+---
+
+## Teams: Three Ways to See Your Swarm
+
+The Teams view is the nerve center. Choose the layout that fits your brain:
+
+**Card View** gives you a responsive grid — progress bars, agent counts, model badges, task lists, and live cost tracking per team.
 
 ![Card View](/images/claude-lens/card-view.png)
 
+**Graph View** renders your entire team topology as an interactive node graph. Violet edges for team-agent links, animated blue pulses for in-progress tasks, dashed orange for blocking dependencies. Click any node to inspect it.
+
 ![Graph View](/images/claude-lens/graph-view.png)
+
+**Split View** — graph on the left, detail panel on the right. The pragmatist's layout.
 
 ![Split View](/images/claude-lens/split-view.png)
 
-### Cost Tracking That Actually Works
+Need a new team? Hit **New Team** in the toolbar. Name it, describe it, click Create. No terminal required.
 
-I built this first because I was tired of guessing my token spend.
+---
 
-Claude Lens scans every JSONL conversation file, intelligently deduplicates messages (because Claude Code's streaming writes can massively overcount if you aren't careful), and calculates your exact USD cost using current Anthropic pricing across the Opus, Sonnet, and Haiku model families.
+## Projects at a Glance
 
-Costs are aggregated per team, per project, and per session. No more surprise bills. Just cold, hard numbers.
+The Projects view surfaces every Claude Code project on your machine as a card — total tokens, session count, cost breakdown, and which models were used. Sort by recency, cost, or token count. Click into any project to see its sessions.
 
-### Analytics Dashboard
+![Projects View](/images/claude-lens/projects-view.png)
 
-Want to know your AI habits? The Analytics view brings four tabs of pure insight:
-- **Usage Overview**: A 30-day stacked bar chart of input/output tokens and daily cost.
-- **Activity Heatmap**: A GitHub-style contribution calendar. Spot your heaviest AI usage days instantly.
-- **Model Comparison**: Are you really getting your money's worth out of Opus? Find out here.
-- **Activity Feed**: An audit log of all assistant turns.
+---
+
+## Analytics That Actually Tell You Something
+
+Five tabs of insight into your AI usage patterns.
+
+**Overview** — Token volume and daily cost as a stacked bar chart. Pick your window: 7, 30, or 90 days. The **Top Projects by Cost** panel shows your biggest spenders instantly.
 
 ![Analytics Overview](/images/claude-lens/analytics-overview.png)
 
+**Heatmap** — A GitHub-style contribution calendar for your Claude Code usage. Spot your heaviest days at a glance.
+
 ![Activity Heatmap](/images/claude-lens/activity-heatmap.png)
+
+**Models** — Side-by-side comparison of every model you've used: message counts, token volumes, cache utilization, and total cost. Are you getting your money's worth out of Opus? Find out here.
 
 ![Model Comparison](/images/claude-lens/analytics-models.png)
 
-![Activity Feed](/images/claude-lens/analytics-activity-feed.png)
+**Cache** — Your cache hit rate, total dollars saved from cache reads, and a daily area chart of cache write vs. read tokens. A 96% hit rate means your agents are sharing context efficiently — and you're paying dramatically less.
 
-### The Ultimate Conversation Browser
+![Cache Efficiency](/images/claude-lens/analytics-cache.png)
 
-Ever needed to re-read what an agent said during a session three days ago? Good luck parsing raw JSONL.
+All tabs lazy-load on first visit and silently refresh every 30 seconds, pausing automatically when you switch away.
 
-With Claude Lens, you get a beautiful, collapsible project tree. The conversation thread renders perfectly, complete with user/assistant bubbles, expandable tool-use blocks, and inline token counts.
+---
 
-Oh, and there's **Full-Text Search**. Debounced, lightning-fast search across every single session file on your disk with highlighted snippets. Click a result and jump straight to that moment in the conversation.
+## Conversations Without the JSONL Archaeology
+
+Ever needed to re-read what an agent said during a session three days ago? Good luck parsing raw JSONL by hand.
+
+Claude Lens gives you a collapsible project tree with every session listed. The conversation thread renders with proper user/assistant bubbles, expandable tool-use blocks, token counts, and per-session cost in the sidebar.
 
 ![Conversation Browser](/images/claude-lens/conversation-browser.png)
 
-![Search View](/images/claude-lens/search-view.png)
+**Ctrl+F** opens an inline search bar that highlights every match across the thread. **Export as Markdown** dumps the full conversation as a clean `.md` file. And there's **full-text search** across every session on disk — debounced, fast, with highlighted snippets. Click a result and jump straight in.
 
-### Settings, Hooks, & MCP Servers—Without the JSON
+![Full-Text Search](/images/claude-lens/search-view.png)
 
-We put a stunning GUI over `~/.claude/settings.json`:
+---
 
-- **General**: Tweak effort levels and bypass permissions with a simple dropdown. No text editor required.
-- **Hooks (with a Test Runner!)**: This is the killer feature. Not only can you manage your Pre/Post tool use hooks, but there's an **inline test runner**. Click play, and it runs your hook live, showing stdout/stderr and exit codes. No more switching to a terminal to debug your Slack webhooks!
-- **MCP Servers**: Add and manage your servers with a clean form.
-- **Profiles & Templates**: Snapshot your settings or save your favorite 5-agent team topology as a template for your next project.
+## Content: Memory, Plans, and Todos
 
-![Settings General](/images/claude-lens/settings-general.png)
+The Content view surfaces Claude Code's internal state — memory files, active plans, and todo lists — in a readable format. No more hunting through hidden directories to see what your agent "remembers."
 
-![Settings Hooks](/images/claude-lens/settings-hooks.png)
+![Content View](/images/claude-lens/content-view.png)
 
-![Settings MCP](/images/claude-lens/settings-mcp.png)
+---
 
-![Settings Notifications](/images/claude-lens/settings-notifications.png)
+## Settings Without the JSON Editing
 
-### Notifications & Budget Limits (A.K.A. The "Save My Wallet" Feature)
+A full GUI over `~/.claude/settings.json`:
 
-Get native OS notifications when tasks finish or teams are created—even if the app is chilling in the background.
+**General** — Effort levels, permission modes, environment variables, and status line commands. All dropdowns and toggles, no text editor.
 
-More importantly, set **Budget Limits**. Drop in a daily USD limit, and Claude Lens will hit you with a soft warning at your threshold, and a hard alert when you hit the cap. Don't let a rogue autonomous agent drain your API credits overnight.
+![Settings](/images/claude-lens/settings-general.png)
 
-![Command Palette](/images/claude-lens/command-palette.png)
+**Hooks** — Manage your Pre/Post tool-use hooks with an inline test runner. Click play, see stdout/stderr and exit codes live. No more switching to a terminal to debug your Slack webhook.
 
-### System Under the Hood
+![Hooks](/images/claude-lens/settings-hooks.png)
 
-Claude Lens includes a live process table to easily kill rogue `claude` sessions, Auth monitoring to warn you before your token expires, and Telemetry viewing.
+**MCP Servers** — Add and configure servers with a clean form. **Profiles & Templates** — Snapshot your settings or save your favorite multi-agent topology as a reusable template.
+
+---
+
+## Budget Alerts (Save Your Wallet)
+
+Set a daily USD limit. Claude Lens gives you a soft warning at your threshold and a hard alert when you hit the cap. Don't let a rogue autonomous agent drain your API credits overnight.
+
+Native OS notifications fire when tasks complete or teams are created — even when the app is in the background.
+
+---
+
+## System: Kill Rogue Agents
+
+The System view shows a live process table of every `claude` session on your machine. Each row has a **CPU sparkline** — a rolling 60-second mini-graph so you can tell at a glance whether a process is pegged at 100% or just idling. One click to kill it.
 
 ![System Processes](/images/claude-lens/system-view.png)
 
-![System Auth](/images/claude-lens/system-auth.png)
+Auth monitoring warns you before your token expires. The Telemetry tab shows recent events.
 
 ---
 
-## How It Works Under the Hood
+## Keyboard-First Navigation
 
-Claude Lens is a pure **read-mostly companion** to Claude Code. It never interferes with your running agents.
+| Shortcut | Action |
+|---|---|
+| `1` – `8` | Jump to any view |
+| `r` | Refresh data |
+| `Ctrl+K` / `Cmd+K` | Command palette |
+| `Ctrl+F` | Search current conversation |
+| `Escape` | Close palette / modal |
 
-A lightweight Node.js main process watches the filesystem (`chokidar`), handles the heavy JSONL scanning and deduplication, and pushes updates via IPC to the React frontend. No polling, just instant reactive goodness.
-
-**The Stack:**
-
-- **Runtime**: Electron 40
-- **Frontend**: React 19, TypeScript, Tailwind CSS v4
-- **Viz**: Recharts 3 & @xyflow/react (React Flow) v12
+![Command Palette](/images/claude-lens/command-palette.png)
 
 ---
 
-## Quick Start
+## Under the Hood
 
-Ready to take control of your agents?
+Claude Lens is a **read-mostly companion**. It never writes to your Claude Code state or interferes with running agents.
+
+A lightweight Node.js main process watches the filesystem with `chokidar`, handles JSONL scanning and deduplication (Claude Code's streaming writes can massively overcount if you're not careful), and pushes updates via IPC to the React frontend.
+
+**The stack:** Electron 40 / React 19 / TypeScript / Tailwind CSS v4 / Recharts / React Flow
+
+---
+
+## Get Started
 
 ```bash
 gh repo clone shansin/claude-lens
@@ -154,9 +183,9 @@ npm install
 npm run dev
 ```
 
-That's literally it. As long as you've used Claude Code before, the app will instantly read from `~/.claude/` and your dashboard will spring to life with your data.
+That's it. If you've used Claude Code before, the app reads from `~/.claude/` and your dashboard is live immediately.
 
-For a production build (macOS `.dmg`, Windows NSIS, Linux AppImage):
+For production builds (macOS `.dmg`, Windows NSIS, Linux AppImage):
 
 ```bash
 npm run build
@@ -166,8 +195,8 @@ npm run build
 
 ## Is This For You?
 
-If you run multi-agent Claude Code teams, care about your API costs, or just want a civilized way to browse past conversations and tweak settings without manually editing JSON files... then yes.
+If you run multi-agent Claude Code teams, care about your API costs, or want a civilized way to browse conversations and manage settings without hand-editing JSON — yes.
 
-Stop flying blind. Get the observability layer that turns *"I think my agents are working"* into *"I know exactly what every agent is doing, what it costs, and what happened."*
+Stop flying blind. Know exactly what every agent is doing, what it costs, and what happened.
 
-*Claude Lens is open source under the ISC license. Contributions are more than welcome.*
+*Claude Lens is open source under the ISC license. Contributions welcome.*
