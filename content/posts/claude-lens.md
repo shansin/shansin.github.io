@@ -1,15 +1,15 @@
 ---
 title: "Claude Lens: The Missing GUI for Claude Code's Multi-Agent System"
-date: 2026-03-03
+date: 2026-03-07
 tags:
   - agents
   - claude
 coverImage: /images/claude-lens/cover.png
-excerpt: I built a desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics — one window, zero JSON spelunking.
+excerpt: A desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics, and more — one window, zero JSON spelunking.
 draft: false
 ---
 
-You spawn a team of six agents. They fan out across your codebase — refactoring modules, writing tests, updating docs. Tokens burn. Tasks fly. And you're left staring at a terminal, wondering:
+You spawn a team of agents. They fan out across your codebase — refactoring modules, writing tests, updating docs. Tokens burn. Tasks fly. And you're left staring at a terminal, wondering:
 
 *Is that agent stuck in a loop? How much has this cost me? Did the migration task actually finish?*
 
@@ -17,19 +17,20 @@ There's no dashboard. No overview. Just raw `.jsonl` files and `~/.claude/tasks/
 
 So I built one.
 
+@[youtube](q96kOvEt5nw){aspect-ratio: 16/9}
+
+[Github](https://github.com/shansin/claude-lens)
+
+
 **Claude Lens** is a native desktop app that reads your `~/.claude/` directory and gives you a real-time control tower over everything Claude Code does — teams, agents, tasks, costs, conversations, settings, and system health.
 
-![Claude Lens — Card View](/images/claude-lens/card-view-dark.png)
-
 It's open source, it's free, and if you're running multi-agent Claude Code, you probably need it.
-
-[GitHub](https://github.com/shansin/claude-lens)
 
 ---
 
 ## Why I Built This
 
-For single-agent sessions, the terminal is fine. But the moment you use Claude Code's team feature — a lead agent recruiting teammates, assigning tasks, coordinating across files — your visibility drops to zero.
+For single-agent session, the terminal is fine. But the moment you use multiple sessions or Claude Code's team feature — a lead agent recruiting teammates, assigning tasks, coordinating across files — your visibility drops to zero.
 
 Here's what "monitoring" looked like before:
 
@@ -42,9 +43,17 @@ Claude Lens replaces all of that with a single window.
 
 ---
 
-## Teams: Three Ways to See Your Swarm
+## Projects at a Glance
 
-The Teams view is the nerve center. Choose the layout that fits your brain:
+The Projects view surfaces every Claude Code project on your machine as a card — total tokens, session count, cost breakdown, and which models were used. Sort by recency, cost, or token count. Click into any project to see its sessions.
+
+![Projects View](/images/claude-lens/projects-view.png)
+
+---
+
+## Agent Teams: Three Ways to See Your Swarm
+
+The Agent Teams view is the nerve center. Choose the layout that fits your brain:
 
 **Card View** gives you a responsive grid — progress bars, agent counts, model badges, task lists, and live cost tracking per team.
 
@@ -59,14 +68,6 @@ The Teams view is the nerve center. Choose the layout that fits your brain:
 ![Split View](/images/claude-lens/split-view.png)
 
 Need a new team? Hit **New Team** in the toolbar. Name it, describe it, click Create. No terminal required.
-
----
-
-## Projects at a Glance
-
-The Projects view surfaces every Claude Code project on your machine as a card — total tokens, session count, cost breakdown, and which models were used. Sort by recency, cost, or token count. Click into any project to see its sessions.
-
-![Projects View](/images/claude-lens/projects-view.png)
 
 ---
 
@@ -102,9 +103,11 @@ Claude Lens gives you a collapsible project tree with every session listed. The 
 
 ![Conversation Browser](/images/claude-lens/conversation-browser.png)
 
-**Ctrl+F** opens an inline search bar that highlights every match across the thread. **Export as Markdown** dumps the full conversation as a clean `.md` file. And there's **full-text search** across every session on disk — debounced, fast, with highlighted snippets. Click a result and jump straight in.
+**Browse / Search** — the sidebar has a two-mode toggle. In Browse mode you navigate the project tree. Flip to Search and you get full-text search across every JSONL session on disk — debounced, with highlighted snippets. Click a result and the conversation opens instantly.
 
 ![Full-Text Search](/images/claude-lens/search-view.png)
+
+**Ctrl+F** opens an inline search bar that highlights every match across the thread. **Export as Markdown** dumps the full conversation as a clean `.md` file.
 
 ---
 
@@ -138,6 +141,8 @@ Set a daily USD limit. Claude Lens gives you a soft warning at your threshold an
 
 Native OS notifications fire when tasks complete or teams are created — even when the app is in the background.
 
+The toolbar always shows your **today** and **30-day** spend at a glance, color-coded green to red as costs climb.
+
 ---
 
 ## System: Kill Rogue Agents
@@ -154,7 +159,13 @@ Auth monitoring warns you before your token expires. The Telemetry tab shows rec
 
 | Shortcut | Action |
 |---|---|
-| `1` – `8` | Jump to any view |
+| `1` | Projects |
+| `2` | Agent Teams |
+| `3` | Analytics |
+| `4` | Content |
+| `5` | Conversations |
+| `6` | System |
+| `7` | Settings |
 | `r` | Refresh data |
 | `Ctrl+K` / `Cmd+K` | Command palette |
 | `Ctrl+F` | Search current conversation |
@@ -185,7 +196,7 @@ npm run dev
 
 That's it. If you've used Claude Code before, the app reads from `~/.claude/` and your dashboard is live immediately.
 
-For production builds (macOS `.dmg`, Windows NSIS, Linux AppImage):
+For production builds (macOS `.dmg`, Windows NSIS, Linux AppImage + deb):
 
 ```bash
 npm run build
