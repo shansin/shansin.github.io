@@ -1,5 +1,5 @@
 ---
-title: "Claude Lens: The Missing GUI for Claude Code's Multi-Agent System"
+title: "Claude Lens - A Control Tower for Claude Code's Multi-Agent System"
 date: 2026-03-07
 tags:
   - agents
@@ -131,7 +131,13 @@ A full GUI over `~/.claude/settings.json`:
 
 ![Hooks](/images/claude-lens/settings-hooks.png)
 
-**MCP Servers** — Add and configure servers with a clean form. **Profiles & Templates** — Snapshot your settings or save your favorite multi-agent topology as a reusable template.
+**MCP Servers** — Add and configure servers with a clean form.
+
+![MCP Servers](/images/claude-lens/settings-mcp.png)
+
+**Profiles & Templates** — Snapshot your settings or save your favorite multi-agent topology as a reusable template.
+
+![Profiles & Templates](/images/claude-lens/settings-profiles.png)
 
 ---
 
@@ -142,6 +148,8 @@ Set a daily USD limit. Claude Lens gives you a soft warning at your threshold an
 Native OS notifications fire when tasks complete or teams are created — even when the app is in the background.
 
 The toolbar always shows your **today** and **30-day** spend at a glance, color-coded green to red as costs climb.
+
+![Budget Alerts](/images/claude-lens/settings-notifications.png)
 
 ---
 
