@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import Link from 'next/link';
 import { formatDate, getShareUrls } from '@/lib/utils';
 import ShareButtons from '@/components/ShareButtons';
+import ReadingProgress from '@/components/ReadingProgress';
 import MermaidRenderer from '@/components/MermaidRenderer';
 import ExcalidrawRenderer from '@/components/ExcalidrawRenderer';
 
@@ -55,6 +56,7 @@ export default async function Post({ params }) {
 
     return (
         <main className="container">
+            <ReadingProgress />
             <div className={styles.article}>
                 <Link href="/" className={styles.backLink} aria-label="Back to homepage">← Back to Home</Link>
 
@@ -68,6 +70,7 @@ export default async function Post({ params }) {
                     <div className={styles.tags}>
                         {postData.tags.map(tag => <span key={tag} className={styles.tag}>#{tag}</span>)}
                     </div>
+                    <span className={styles.headerAccent} aria-hidden="true" />
                 </header>
 
                 <div className={styles.content} dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />

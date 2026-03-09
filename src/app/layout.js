@@ -55,6 +55,7 @@ export const metadata = {
 };
 
 import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
 
 export default function RootLayout({ children }) {
   return (
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
           <a href="#main-content" className="skip-link">
             Skip to main content
           </a>
+          <NavBar />
           <div id="main-content" style={{ flex: 1 }} role="main">
             {children}
           </div>

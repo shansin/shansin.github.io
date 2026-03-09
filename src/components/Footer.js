@@ -1,9 +1,6 @@
 'use client';
 
 import styles from './Footer.module.css';
-import dynamic from 'next/dynamic';
-
-const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
 
 const currentYear = new Date().getFullYear();
 
@@ -15,9 +12,6 @@ export default function Footer() {
                 <div className={styles.copyright}>
                     &copy; {currentYear} Shantanu Singh
                 </div>
-                <div className={styles.themeSection}>
-                    <ThemeToggle size="small" />
-                </div>
                 <nav className={styles.links} aria-label="Social media links">
                     <a href="https://github.com/shansin" target="_blank" rel="noopener noreferrer" className={styles.link} aria-label="GitHub profile">
                         Github
@@ -27,6 +21,9 @@ export default function Footer() {
                     </a>
                     <a href="https://www.linkedin.com/in/singhshantanu/" target="_blank" rel="noopener noreferrer" className={styles.link} aria-label="LinkedIn profile">
                         LinkedIn
+                    </a>
+                    <a href="/feed.xml" className={styles.link} aria-label="RSS Feed">
+                        RSS
                     </a>
                 </nav>
             </div>

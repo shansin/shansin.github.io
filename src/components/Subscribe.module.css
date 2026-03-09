@@ -1,0 +1,116 @@
+.section {
+    border-top: 1px solid var(--border);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-xl);
+}
+
+.inner {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.heading {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.01em;
+}
+
+.description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.form {
+    display: flex;
+    gap: var(--spacing-sm);
+    width: 100%;
+    max-width: 400px;
+}
+
+.input {
+    flex: 1;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: var(--accent);
+}
+
+.button {
+    padding: 0.6rem 1.25rem;
+    background: var(--accent);
+    color: var(--text-on-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.rss {
+    font-size: 0.9rem;
+}
+
+.rssLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.rssLink:hover {
+    color: var(--accent);
+}
+
+.rssLink svg {
+    filter: none !important;
+}
+
+.successMsg {
+    margin-top: var(--spacing-md);
+    color: #16a34a;
+    font-size: 0.9rem;
+}
+
+.errorMsg {
+    margin-top: var(--spacing-md);
+    color: #dc2626;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .form {
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+    }
+}

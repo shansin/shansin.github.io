@@ -1,11 +1,8 @@
 .footer {
-    position: sticky;
-    bottom: 0;
     padding: var(--spacing-md) 0;
     border-top: 1px solid var(--border);
     color: var(--text-secondary);
     background-color: var(--bg-primary);
-    z-index: 100;
 }
 
 .content {
@@ -15,22 +12,13 @@
 }
 
 .copyright {
-    flex: 1;
-}
-
-.themeSection {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 0.85rem;
 }
 
 .links {
-    flex: 1;
     display: flex;
     gap: var(--spacing-md);
     align-items: center;
-    justify-content: flex-end;
 }
 
 .link {
@@ -46,17 +34,9 @@
 @media (max-width: 640px) {
     .content {
         flex-direction: column;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
     }
-    
-    .copyright {
-        text-align: center;
-    }
-    
-    .themeSection {
-        order: -1;
-    }
-    
+
     .links {
         justify-content: center;
     }

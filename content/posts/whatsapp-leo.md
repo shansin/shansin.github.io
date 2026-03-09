@@ -9,6 +9,7 @@ tags:
 coverImage: /images/whatsapp-leo/leo.png
 excerpt: "A fully local AI assistant inside WhatsApp — handling queries, calendar, email, and fitness tracking with zero API costs and complete data privacy."
 draft: false
+featured: true
 ---
 Imagine an assistant that lives in your WhatsApp—handling ChatGPT-style queries, searching the web, managing your calendar, reading your emails, tracking your fitness, and reminding you of important tasks. Now imagine this assistant runs **entirely on your machine**, costs **zero dollars** in API fees, and keeps your data **completely private**.
 

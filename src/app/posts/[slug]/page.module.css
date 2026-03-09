@@ -48,22 +48,39 @@
     font-size: 0.875rem;
 }
 
+.headerAccent {
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin: var(--spacing-md) auto 0;
+    border-radius: 2px;
+}
+
 .content {
     font-size: 1.125rem;
     line-height: 1.8;
     color: var(--text-primary);
 }
 
+.content img {
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin: var(--spacing-lg) 0;
+}
+
 .content h2 {
     margin-top: var(--spacing-xl);
     margin-bottom: var(--spacing-md);
     font-size: 1.8rem;
+    letter-spacing: -0.01em;
 }
 
 .content h3 {
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-sm);
     font-size: 1.4rem;
+    letter-spacing: -0.01em;
 }
 
 .content p {

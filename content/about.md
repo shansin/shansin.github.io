@@ -4,7 +4,9 @@ title: About
 
 ## Hi, I'm Shantanu.
 
-My current focus is building and running powerful AI models on local hardware. When I step away from the terminal, I'm usually training for my next endurance event.
+I'm a senior engineering manager at a large tech company. By day, I build and lead teams that ship software at scale. By night (and early morning), I'm usually tinkering with AI models running on local hardware — because I believe the most interesting work happens when you own the full stack, down to the metal.
+
+When I'm not at a keyboard, I'm training. Running and cycling are how I reset, think through hard problems, and remind myself that most worthwhile things require sustained effort over a long time. The blog name — *Systems and Strides* — comes from that overlap: the systems we build in software and the strides we take on the road.
 
 ### Why This Blog?
 

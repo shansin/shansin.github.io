@@ -5,6 +5,7 @@ tags:
   - agents
   - claude
 coverImage: /images/claude-lens/cover.png
+featured: true
 excerpt: A desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics, and more — one window, zero JSON spelunking.
 draft: false
 ---

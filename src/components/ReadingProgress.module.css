@@ -1,0 +1,10 @@
+.bar {
+    position: fixed;
+    top: 48px; /* below the nav bar */
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 300;
+    transition: width 0.1s linear;
+    pointer-events: none;
+}

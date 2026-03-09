@@ -5,17 +5,7 @@
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
     margin-bottom: var(--spacing-md);
-}
-
-.headerControls {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
 }
 
 .title {
@@ -28,25 +18,16 @@
     margin: 0;
 }
 
-.aboutLink {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: var(--primary);
-    color: var(--text-on-accent);
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.aboutLink:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-2px);
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+    font-style: italic;
+    letter-spacing: 0.01em;
 }
 
 .content h1 {
     display: none;
-    /* Hide original h1 from markdown if present */
 }
 
 .content p {
