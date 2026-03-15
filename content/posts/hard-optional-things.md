@@ -2,7 +2,7 @@
 title: "Optional Hard Things"
 date: "2026-02-04"
 tags: ["growth", "resilience"]
-coverImage: "/images/hard-optional-things/hard-optional-things.png"
+coverImage: "/images/hard-optional-things/hard-optional-things.webp"
 excerpt: "Modern life decoupled reward from effort. Voluntary hardship — cold showers, heavy lifts, deep work — rewires the equation and builds lasting resilience."
 draft: false
 ---
@@ -53,4 +53,4 @@ When life forces a struggle upon you (a setback, an illness), it is suffering. B
 
 So, pick one hard optional thing today. Not because you have to, but because you don't. That is where the magic lies.
 
-![Success through struggle](/images/hard-optional-things/hard-optional-things.png)
+![Success through struggle](/images/hard-optional-things/hard-optional-things.webp)

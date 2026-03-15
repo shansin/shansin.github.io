@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import React from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';

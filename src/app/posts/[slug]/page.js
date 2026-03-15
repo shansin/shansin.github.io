@@ -3,7 +3,7 @@ import styles from './page.module.css';
 import Link from 'next/link';
 import { formatDate, getShareUrls } from '@/lib/utils';
 import ShareButtons from '@/components/ShareButtons';
-import ExcalidrawRenderer from '@/components/ExcalidrawRenderer';
+import ExcalidrawWrapper from '@/components/ExcalidrawWrapper';
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
@@ -70,7 +70,7 @@ export default async function Post({ params }) {
                 </header>
 
                 <div className={styles.content} dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-                <ExcalidrawRenderer />
+                {postData.contentHtml.includes('excalidraw-diagram') && <ExcalidrawWrapper />}
 
                 <footer className={styles.footer}>
                     <ShareButtons urls={shareUrls} title={postData.title} />

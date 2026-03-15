@@ -4,7 +4,7 @@ date: "2025-12-31"
 tags:
   - local-ai
   - agents
-coverImage: /images/crew-ai/crew-ai.png
+coverImage: /images/crew-ai/crew-ai.webp
 excerpt: "Scaling CrewAI from a simple debate exercise to a fully autonomous software engineering crew — agents that research, code, and review, all running on local GPUs."
 draft: false
 ---
@@ -179,13 +179,13 @@ The system has access to a function get_share_price(symbol) which returns the cu
 
 **Final Output:**
 **Account Management**
-![CrewAI](/images/crew-ai/1.png)
+![CrewAI](/images/crew-ai/1.webp)
 
 **Trading**
-![CrewAI](/images/crew-ai/2.png)
+![CrewAI](/images/crew-ai/2.webp)
 
 **Portfolio & Transactions**
-![CrewAI](/images/crew-ai/3.png)
+![CrewAI](/images/crew-ai/3.webp)
 
 ---
 

@@ -293,7 +293,16 @@ export async function getMarkdownContent(relativePath) {
     return result;
 }
 
+// Cache for getAllPosts result (keyed by NODE_ENV to avoid mixing dev/prod)
+let allPostsCache = null;
+let allPostsCacheEnv = null;
+
 export function getAllPosts() {
+    // Return cached result if available for current environment
+    if (allPostsCache !== null && allPostsCacheEnv === process.env.NODE_ENV) {
+        return allPostsCache;
+    }
+
     // Ensure the posts directory exists
     const postsDirectory = path.join(contentDirectory, 'posts');
     if (!fs.existsSync(postsDirectory)) {
@@ -348,11 +357,15 @@ export function getAllPosts() {
         ? allPostsData
         : allPostsData.filter(post => !post.draft);
 
-    return filteredPosts.sort((a, b) => {
+    const sorted = filteredPosts.sort((a, b) => {
         if (a.date < b.date) {
             return 1;
         } else {
             return -1;
         }
     });
+
+    allPostsCache = sorted;
+    allPostsCacheEnv = process.env.NODE_ENV;
+    return sorted;
 }

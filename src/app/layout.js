@@ -17,8 +17,8 @@ const lora = Lora({
   subsets: ["latin"],
   display: 'swap',
   variable: '--font-serif',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['400', '600'],
+  style: ['normal'],
 });
 
 export const viewport = {
@@ -67,9 +67,12 @@ import Footer from "@/components/Footer";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="light">
-      <GoogleAnalytics />
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})()` }} />
+      </head>
       <body className={`${inter.variable} ${lora.variable}`} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'var(--font-sans, system-ui, sans-serif)' }}>
+        <GoogleAnalytics />
         <ThemeProvider>
           <a href="#main-content" className="skip-link">
             Skip to main content
