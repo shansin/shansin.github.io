@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -8,8 +8,17 @@ import { siteConfig } from "@/lib/config";
 const inter = Inter({
   subsets: ["latin"],
   display: 'swap',
+  variable: '--font-sans',
   preload: true,
   fallback: ['system-ui', 'sans-serif'],
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-serif',
+  weight: ['400', '600'],
+  style: ['normal'],
 });
 
 export const viewport = {
@@ -59,9 +68,12 @@ import NavBar from "@/components/NavBar";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="light">
-      <GoogleAnalytics />
-      <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})()` }} />
+      </head>
+      <body className={`${inter.variable} ${lora.variable}`} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'var(--font-sans, system-ui, sans-serif)' }}>
+        <GoogleAnalytics />
         <ThemeProvider>
           <a href="#main-content" className="skip-link">
             Skip to main content

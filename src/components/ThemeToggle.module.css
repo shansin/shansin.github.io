@@ -19,6 +19,12 @@
   color: var(--text-on-accent);
   border-color: var(--accent);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-accent);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .button:focus {

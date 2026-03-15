@@ -6,7 +6,7 @@ tags:
   - assistant
   - privacy
   - agents
-coverImage: /images/whatsapp-leo/leo.png
+coverImage: /images/whatsapp-leo/leo.webp
 excerpt: "A fully local AI assistant inside WhatsApp — handling queries, calendar, email, and fitness tracking with zero API costs and complete data privacy."
 draft: false
 featured: true

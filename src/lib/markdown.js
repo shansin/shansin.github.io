@@ -85,22 +85,6 @@ function remarkYouTubeEmbed() {
     };
 }
 
-// Remark plugin to convert ```mermaid code blocks into <div class="mermaid"> elements.
-// This prevents rehype-highlight from syntax-highlighting Mermaid source and instead
-// outputs a div that the client-side Mermaid renderer can pick up.
-function remarkMermaid() {
-    return (tree) => {
-        visit(tree, 'code', (node, index, parent) => {
-            if (node.lang !== 'mermaid') return;
-
-            parent.children[index] = {
-                type: 'html',
-                value: `<div class="mermaid">${node.value}</div>`,
-            };
-        });
-    };
-}
-
 // Remark plugin to convert @[excalidraw](path) into a <div> with data-scene.
 // The path is resolved relative to the project root (process.cwd()), so you can
 // reference files anywhere, e.g. public/images/whatsapp-leo/arch.excalidraw.
@@ -159,7 +143,6 @@ const isDev = process.env.NODE_ENV === 'development';
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark()
     .use(remarkYouTubeEmbed)
-    .use(remarkMermaid)
     .use(remarkExcalidraw)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
@@ -310,7 +293,16 @@ export async function getMarkdownContent(relativePath) {
     return result;
 }
 
+// Cache for getAllPosts result (keyed by NODE_ENV to avoid mixing dev/prod)
+let allPostsCache = null;
+let allPostsCacheEnv = null;
+
 export function getAllPosts() {
+    // Return cached result if available for current environment
+    if (allPostsCache !== null && allPostsCacheEnv === process.env.NODE_ENV) {
+        return allPostsCache;
+    }
+
     // Ensure the posts directory exists
     const postsDirectory = path.join(contentDirectory, 'posts');
     if (!fs.existsSync(postsDirectory)) {
@@ -365,11 +357,15 @@ export function getAllPosts() {
         ? allPostsData
         : allPostsData.filter(post => !post.draft);
 
-    return filteredPosts.sort((a, b) => {
+    const sorted = filteredPosts.sort((a, b) => {
         if (a.date < b.date) {
             return 1;
         } else {
             return -1;
         }
     });
+
+    allPostsCache = sorted;
+    allPostsCacheEnv = process.env.NODE_ENV;
+    return sorted;
 }

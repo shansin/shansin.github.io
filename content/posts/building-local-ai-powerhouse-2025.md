@@ -3,7 +3,7 @@ title: "Building a Local AI Rig in 2025"
 date: 2025-11-25
 tags:
   - local-ai
-coverImage: /images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg
+coverImage: /images/building-local-ai-powerhouse-2025/dual_gpu_build.webp
 excerpt: "A dual-GPU workstation built for local LLM inference — 32GB of VRAM, no API leash, and the joy of cracking open a PC case again after 20 years."
 draft: false
 ---
@@ -44,4 +44,4 @@ It feels good to be back in the BIOS. Now, if you’ll excuse me, I have some lo
 
 ---
 
-![Dual GPU Build](/images/building-local-ai-powerhouse-2025/dual_gpu_build.jpg)
+![Dual GPU Build](/images/building-local-ai-powerhouse-2025/dual_gpu_build.webp)

@@ -20,21 +20,38 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-accent: 0 2px 8px var(--accent-glow);
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
   --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
+  --bg-secondary: #14161a;
   --text-primary: #ededed;
   --text-secondary: #a1a1aa;
   --muted: #737373;
   --accent: #3b82f6;
   --accent-glow: rgba(59, 130, 246, 0.5);
-  --border: #262626;
+  --border: #2e2e2e;
   --primary: var(--accent);
   --primary-dark: #2563eb;
   --text-on-accent: #ffffff;
+
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] ::selection {
+  background-color: rgba(59, 130, 246, 0.35);
+  color: var(--text-primary);
 }
 
 * {
@@ -62,7 +79,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 h1,
@@ -74,6 +91,7 @@ h6 {
   line-height: 1.2;
   font-weight: 600;
   color: var(--text-primary);
+  font-family: var(--font-serif, Georgia, serif);
 }
 
 img {
@@ -122,7 +140,6 @@ svg {
 }
 
 /* Exempt diagrams that handle their own dark themes */
-[data-theme="dark"] .mermaid svg,
 [data-theme="dark"] .excalidraw-diagram svg {
   filter: none;
 }
@@ -196,6 +213,7 @@ pre {
   border-radius: 8px;
   margin: 1.5rem 0;
   border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
   white-space: pre-wrap;
   /* css-3 */
   white-space: -moz-pre-wrap;
@@ -336,29 +354,6 @@ code {
   border: none;
   width: 100%;
   height: 100%;
-}
-
-/* Mermaid Diagrams */
-.mermaid {
-  display: flex;
-  justify-content: center;
-  margin: var(--spacing-lg) 0;
-  padding: var(--spacing-lg) var(--spacing-md);
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow-x: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-[data-theme="dark"] .mermaid {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-}
-
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
 }
 
 /* Excalidraw Diagrams */

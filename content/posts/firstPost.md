@@ -2,7 +2,7 @@
 title: "First Post"
 date: "2025-11-24"
 tags: ["intro"]
-coverImage: "/images/intro/fountain-pen.png"
+coverImage: "/images/intro/fountain-pen.webp"
 excerpt: "Why I started writing — and what to expect from a blog at the intersection of AI engineering and endurance."
 ---
 
