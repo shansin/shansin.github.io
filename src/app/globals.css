@@ -74,6 +74,7 @@ h6 {
   line-height: 1.2;
   font-weight: 600;
   color: var(--text-primary);
+  font-family: var(--font-serif, Georgia, serif);
 }
 
 img {
@@ -93,7 +94,6 @@ svg {
 }
 
 /* Exempt diagrams that handle their own dark themes */
-[data-theme="dark"] .mermaid svg,
 [data-theme="dark"] .excalidraw-diagram svg {
   filter: none;
 }
@@ -291,29 +291,6 @@ code {
   border: none;
   width: 100%;
   height: 100%;
-}
-
-/* Mermaid Diagrams */
-.mermaid {
-  display: flex;
-  justify-content: center;
-  margin: var(--spacing-lg) 0;
-  padding: var(--spacing-lg) var(--spacing-md);
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow-x: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-[data-theme="dark"] .mermaid {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-}
-
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
 }
 
 /* Excalidraw Diagrams */

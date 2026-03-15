@@ -85,22 +85,6 @@ function remarkYouTubeEmbed() {
     };
 }
 
-// Remark plugin to convert ```mermaid code blocks into <div class="mermaid"> elements.
-// This prevents rehype-highlight from syntax-highlighting Mermaid source and instead
-// outputs a div that the client-side Mermaid renderer can pick up.
-function remarkMermaid() {
-    return (tree) => {
-        visit(tree, 'code', (node, index, parent) => {
-            if (node.lang !== 'mermaid') return;
-
-            parent.children[index] = {
-                type: 'html',
-                value: `<div class="mermaid">${node.value}</div>`,
-            };
-        });
-    };
-}
-
 // Remark plugin to convert @[excalidraw](path) into a <div> with data-scene.
 // The path is resolved relative to the project root (process.cwd()), so you can
 // reference files anywhere, e.g. public/images/whatsapp-leo/arch.excalidraw.
@@ -159,7 +143,6 @@ const isDev = process.env.NODE_ENV === 'development';
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark()
     .use(remarkYouTubeEmbed)
-    .use(remarkMermaid)
     .use(remarkExcalidraw)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
