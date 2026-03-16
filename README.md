@@ -88,6 +88,38 @@ draft: true
 
 Remove `draft: true` when ready to publish.
 
+### Embed a YouTube Video
+
+Use the `@[youtube](VIDEO_ID)` syntax in any post. Optionally override width and aspect ratio:
+
+```markdown
+@[youtube](dQw4w9WgXcQ)
+
+@[youtube](dQw4w9WgXcQ){width: 60%, aspect-ratio: 9/16}
+```
+
+The `VIDEO_ID` is the `v=` parameter from the YouTube URL.
+
+### Embed a Strava Activity
+
+Use the `@[strava](ACTIVITY_ID/EMBED_TOKEN)` syntax:
+
+```markdown
+@[strava](1234567890/abc123embedtoken)
+```
+
+To get the embed token: open the activity on Strava → Share → Embed → copy the `src` from the iframe snippet. The token is the last path segment after `/embed/`.
+
+### Embed an X (Twitter) Post
+
+Use the `@[tweet](TWEET_ID)` syntax:
+
+```markdown
+@[tweet](1234567890123456789)
+```
+
+The tweet ID is the number at the end of the post URL — e.g. `https://x.com/user/status/1234567890123456789`.
+
 ### Update Intro or About
 
 Edit `content/intro.md` or `content/about.md`:

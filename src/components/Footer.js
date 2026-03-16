@@ -2,12 +2,12 @@
 
 import styles from './Footer.module.css';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
 
-const currentYear = new Date().getFullYear();
-
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
 
     return (
         <footer className={styles.footer}>
@@ -18,7 +18,13 @@ export default function Footer() {
                 <div className={styles.themeSection}>
                     <ThemeToggle size="small" />
                 </div>
-                <nav className={styles.links} aria-label="Social media links">
+                <nav className={styles.links} aria-label="Footer navigation">
+                    <Link href="/about" className={styles.link}>
+                        About
+                    </Link>
+                    <a href="/feed.xml" className={styles.link} aria-label="RSS feed">
+                        RSS
+                    </a>
                     <a href="https://github.com/shansin" target="_blank" rel="noopener noreferrer" className={styles.link} aria-label="GitHub profile">
                         Github
                     </a>

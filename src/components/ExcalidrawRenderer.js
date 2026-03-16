@@ -8,6 +8,10 @@ import { useEffect } from 'react';
  * @excalidraw/excalidraw dependency. Supports rectangles, text, arrows,
  * ellipses, and diamonds with fill, stroke, and font styles.
  */
+
+// Cache rendered SVG strings keyed by (sceneB64, isDark) to avoid re-rendering on theme toggle
+const svgCache = new Map();
+
 export default function ExcalidrawRenderer() {
     useEffect(() => {
         let observer = null;
@@ -20,11 +24,16 @@ export default function ExcalidrawRenderer() {
 
             for (const container of containers) {
                 try {
-                    const json = atob(container.getAttribute('data-scene'));
-                    const scene = JSON.parse(json);
-                    const svg = renderScene(scene, isDark);
-                    container.innerHTML = '';
-                    container.appendChild(svg);
+                    const sceneB64 = container.getAttribute('data-scene');
+                    const cacheKey = `${sceneB64}-${isDark}`;
+                    let svgString = svgCache.get(cacheKey);
+                    if (!svgString) {
+                        const json = atob(sceneB64);
+                        const scene = JSON.parse(json);
+                        svgString = renderScene(scene, isDark).outerHTML;
+                        svgCache.set(cacheKey, svgString);
+                    }
+                    container.innerHTML = svgString;
                 } catch (err) {
                     console.error('[ExcalidrawRenderer]', err);
                     container.innerHTML = `<p style="color:var(--text-secondary);text-align:center;padding:1rem">📐 Excalidraw diagram could not be rendered</p>`;

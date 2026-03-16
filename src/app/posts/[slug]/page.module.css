@@ -2,6 +2,18 @@
     max-width: 780px;
     margin: 0 auto;
     padding: var(--spacing-xl) 0;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (min-width: 1280px) {
@@ -44,14 +56,25 @@
 }
 
 .tag {
-    color: var(--accent);
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     font-size: 0.875rem;
+    color: var(--text-secondary);
 }
 
 .content {
     font-size: 1.125rem;
     line-height: 1.8;
     color: var(--text-primary);
+}
+
+.content img {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: var(--spacing-lg) auto;
 }
 
 .content h2 {
@@ -64,6 +87,19 @@
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-sm);
     font-size: 1.4rem;
+}
+
+.content h4 {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.2rem;
+}
+
+.content h5,
+.content h6 {
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.1rem;
 }
 
 .content p {
@@ -87,7 +123,8 @@
 }
 
 .content a:hover {
-    color: var(--text-primary);
+    color: var(--primary-dark);
+    text-decoration-color: var(--primary-dark);
 }
 
 .content table {
@@ -116,6 +153,10 @@
 
 .content tr:hover {
     background-color: var(--border);
+}
+
+[data-theme="dark"] .content tr:hover {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 .backLink {

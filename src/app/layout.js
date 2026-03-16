@@ -18,7 +18,7 @@ const lora = Lora({
   display: 'swap',
   variable: '--font-serif',
   weight: ['400', '600'],
-  style: ['normal'],
+  style: ['normal', 'italic'],
 });
 
 export const viewport = {
@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})()` }} />
       </head>
-      <body className={`${inter.variable} ${lora.variable}`} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'var(--font-sans, system-ui, sans-serif)' }}>
+      <body className={`${inter.variable} ${lora.variable}`}>
         <GoogleAnalytics />
         <ThemeProvider>
           <a href="#main-content" className="skip-link">

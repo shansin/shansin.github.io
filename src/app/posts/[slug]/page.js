@@ -2,6 +2,7 @@ import { getAllPosts, getPostData } from '@/lib/markdown';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { formatDate, getShareUrls } from '@/lib/utils';
+import { siteConfig } from '@/lib/config';
 import ShareButtons from '@/components/ShareButtons';
 import ExcalidrawWrapper from '@/components/ExcalidrawWrapper';
 
@@ -9,28 +10,26 @@ export async function generateMetadata({ params }) {
     const { slug } = await params;
     const post = await getPostData(slug);
 
-    const baseUrl = 'https://shsin.blog';
-
     return {
         title: post.title,
         description: post.excerpt || `Read ${post.title} on Systems and Strides`,
         keywords: post.tags,
-        authors: [{ name: 'Shantanu Singh' }],
+        authors: [{ name: siteConfig.author }],
         alternates: {
-            canonical: `${baseUrl}/posts/${slug}`,
+            canonical: `${siteConfig.url}/posts/${slug}`,
         },
         openGraph: {
             title: post.title,
             description: post.excerpt || `Read ${post.title} on Systems and Strides`,
-            url: `${baseUrl}/posts/${slug}`,
-            siteName: "Systems and Strides",
+            url: `${siteConfig.url}/posts/${slug}`,
+            siteName: siteConfig.title,
             locale: 'en_US',
             type: 'article',
             publishedTime: post.date,
             tags: post.tags,
             ...(post.coverImage && {
                 images: [{
-                    url: `${baseUrl}${post.coverImage}`,
+                    url: `${siteConfig.url}${post.coverImage}`,
                     width: 1200,
                     height: 630,
                     alt: post.title,
@@ -50,7 +49,7 @@ export async function generateStaticParams() {
 export default async function Post({ params }) {
     const { slug } = await params;
     const postData = await getPostData(slug);
-    const shareUrls = getShareUrls(postData.title, `https://shsin.blog/posts/${slug}`);
+    const shareUrls = getShareUrls(postData.title, `${siteConfig.url}/posts/${slug}`);
 
     return (
         <main className="container">
@@ -70,7 +69,7 @@ export default async function Post({ params }) {
                 </header>
 
                 <div className={styles.content} dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-                {postData.contentHtml.includes('excalidraw-diagram') && <ExcalidrawWrapper />}
+                {postData.hasExcalidraw && <ExcalidrawWrapper />}
 
                 <footer className={styles.footer}>
                     <ShareButtons urls={shareUrls} title={postData.title} />

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import React from 'react';
 import styles from './BlogList.module.css';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
@@ -87,7 +86,7 @@ function BlogList({ posts }) {
 
             <div className={styles.postList} role="list">
                 {filteredPosts.map(post => (
-                    <Link key={post.id} href={`/posts/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }} role="listitem" aria-label={`Read ${post.title}`}>
+                    <Link key={post.id} href={`/posts/${post.id}`} className={styles.postLink} role="listitem" aria-label={`Read ${post.title}`}>
                         <article className={`${styles.post} ${post.coverImage ? styles.postWithImage : ''}`}>
                             {post.coverImage && (
                                 <div className={styles.postImageWrapper}>
@@ -110,9 +109,19 @@ function BlogList({ posts }) {
                                 <p className={styles.postExcerpt}>{post.excerpt}</p>
                                 <div className={styles.postTags}>
                                     {post.tags?.map(tag => (
-                                        <span key={tag} className={styles.tag} style={{ cursor: 'default' }}>
+                                        <button
+                                            key={tag}
+                                            className={`${styles.postTag} ${selectedTag === tag ? styles.postTagActive : ''}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                setSelectedTag(tag === selectedTag ? null : tag);
+                                            }}
+                                            aria-pressed={selectedTag === tag}
+                                            aria-label={`Filter by tag: ${tag}`}
+                                        >
                                             #{tag}
-                                        </span>
+                                        </button>
                                     ))}
                                 </div>
                             </div>
@@ -120,11 +129,11 @@ function BlogList({ posts }) {
                     </Link>
                 ))}
                 {filteredPosts.length === 0 && (
-                    <p style={{ color: 'var(--text-secondary)' }}>No posts found.</p>
+                    <p className={styles.emptyState}>No posts found.</p>
                 )}
             </div>
         </section>
     );
 }
 
-export default React.memo(BlogList);
+export default BlogList;

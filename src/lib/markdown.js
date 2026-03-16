@@ -85,6 +85,116 @@ function remarkYouTubeEmbed() {
     };
 }
 
+// Remark plugin to convert @[tweet](TWEET_ID) into an embedded X/Twitter iframe.
+// TWEET_ID is the numeric ID at the end of the tweet URL:
+// e.g. https://x.com/user/status/1234567890 → @[tweet](1234567890)
+function remarkTweetEmbed() {
+    return (tree) => {
+        visit(tree, 'paragraph', (node, index, parent) => {
+            const children = node.children;
+            if (!children || children.length < 2) return;
+
+            for (let i = 0; i < children.length - 1; i++) {
+                const textNode = children[i];
+                const linkNode = children[i + 1];
+
+                if (
+                    textNode.type !== 'text' ||
+                    !textNode.value.endsWith('@') ||
+                    linkNode.type !== 'link' ||
+                    !linkNode.children ||
+                    linkNode.children.length !== 1 ||
+                    linkNode.children[0].type !== 'text' ||
+                    linkNode.children[0].value !== 'tweet'
+                ) {
+                    continue;
+                }
+
+                const prefix = textNode.value.slice(0, -1).trim();
+                if (prefix !== '') continue;
+
+                const tweetId = linkNode.url;
+
+                const htmlString = `
+        <div class="tweet-embed-wrapper">
+          <iframe
+            src="https://platform.twitter.com/embed/Tweet.html?id=${tweetId}"
+            title="X (Twitter) post"
+            frameborder="0"
+            scrolling="no"
+            allowtransparency="true">
+          </iframe>
+        </div>
+      `;
+
+                parent.children[index] = {
+                    type: 'html',
+                    value: htmlString
+                };
+
+                return;
+            }
+        });
+    };
+}
+
+// Remark plugin to convert @[strava](ACTIVITY_ID/EMBED_TOKEN) into an embedded iframe.
+// Strava embed URL format: https://www.strava.com/activities/{id}/embed/{token}
+// Get the token from the Strava activity share dialog ("Embed" option).
+function remarkStravaEmbed() {
+    return (tree) => {
+        visit(tree, 'paragraph', (node, index, parent) => {
+            const children = node.children;
+            if (!children || children.length < 2) return;
+
+            for (let i = 0; i < children.length - 1; i++) {
+                const textNode = children[i];
+                const linkNode = children[i + 1];
+
+                if (
+                    textNode.type !== 'text' ||
+                    !textNode.value.endsWith('@') ||
+                    linkNode.type !== 'link' ||
+                    !linkNode.children ||
+                    linkNode.children.length !== 1 ||
+                    linkNode.children[0].type !== 'text' ||
+                    linkNode.children[0].value !== 'strava'
+                ) {
+                    continue;
+                }
+
+                const prefix = textNode.value.slice(0, -1).trim();
+                if (prefix !== '') continue;
+
+                // URL is "ACTIVITY_ID/EMBED_TOKEN"
+                const parts = linkNode.url.split('/');
+                if (parts.length < 2) continue;
+                const activityId = parts[0];
+                const embedToken = parts[1];
+
+                const htmlString = `
+        <div class="strava-embed-wrapper">
+          <iframe
+            src="https://www.strava.com/activities/${activityId}/embed/${embedToken}"
+            title="Strava activity"
+            frameborder="0"
+            allowtransparency="true"
+            scrolling="no">
+          </iframe>
+        </div>
+      `;
+
+                parent.children[index] = {
+                    type: 'html',
+                    value: htmlString
+                };
+
+                return;
+            }
+        });
+    };
+}
+
 // Remark plugin to convert @[excalidraw](path) into a <div> with data-scene.
 // The path is resolved relative to the project root (process.cwd()), so you can
 // reference files anywhere, e.g. public/images/whatsapp-leo/arch.excalidraw.
@@ -140,13 +250,28 @@ const contentDirectory = path.join(process.cwd(), 'content');
 // Check if we're in development mode
 const isDev = process.env.NODE_ENV === 'development';
 
+// Rehype plugin to add loading="lazy" and decoding="async" to all markdown images
+function rehypeLazyImages() {
+    return (tree) => {
+        visit(tree, 'element', (node) => {
+            if (node.tagName === 'img') {
+                node.properties.loading = 'lazy';
+                node.properties.decoding = 'async';
+            }
+        });
+    };
+}
+
 // Create a single reusable remark processor instance for better performance
 const remarkProcessor = remark()
     .use(remarkYouTubeEmbed)
+    .use(remarkTweetEmbed)
+    .use(remarkStravaEmbed)
     .use(remarkExcalidraw)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight)
+    .use(rehypeLazyImages)
     .use(rehypeStringify, { allowDangerousHtml: true });
 
 // Cache for processed markdown content to improve performance
@@ -208,7 +333,7 @@ export async function getPostData(id) {
             'src', 'alt', 'width', 'height',
             'class', 'id',
             'language', 'className',
-            'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'type', 'controls',
+            'allow', 'allowfullscreen', 'allowtransparency', 'frameborder', 'referrerpolicy', 'scrolling', 'type', 'controls',
             'style', 'data-source', 'data-type', 'data-scene'
         ]
     });
@@ -224,6 +349,7 @@ export async function getPostData(id) {
     const result = {
         id,
         contentHtml,
+        hasExcalidraw: rawHtml.includes('excalidraw-diagram'),
         readingTime,
         ...data,
     };
@@ -277,7 +403,7 @@ export async function getMarkdownContent(relativePath) {
             'src', 'alt', 'width', 'height',
             'class', 'id',
             'language', 'className',
-            'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'type', 'controls',
+            'allow', 'allowfullscreen', 'allowtransparency', 'frameborder', 'referrerpolicy', 'scrolling', 'type', 'controls',
             'style'
         ]
     });
