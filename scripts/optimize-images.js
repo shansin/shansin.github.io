@@ -145,8 +145,24 @@ async function main() {
     }
 
     const updatedFiles = updateMarkdownReferences(convertedPaths);
+
+    // Remove original images now that WebP versions exist and references are updated
+    let removed = 0;
+    for (const img of convertedPaths) {
+        const dir = path.dirname(img);
+        const ext = path.extname(img);
+        const base = path.basename(img, ext);
+        const webpPath = path.join(dir, `${base}.webp`);
+        if (fs.existsSync(webpPath)) {
+            fs.unlinkSync(img);
+            removed++;
+            const rel = path.relative(path.join(__dirname, '..'), img);
+            console.log(`  🗑 Removed original ${rel}`);
+        }
+    }
+
     const savedMB = (totalSaved / 1024 / 1024).toFixed(1);
-    console.log(`[optimize-images] Done. Converted: ${converted}, skipped: ${skipped}, saved: ${savedMB} MB, markdown files updated: ${updatedFiles}`);
+    console.log(`[optimize-images] Done. Converted: ${converted}, skipped: ${skipped}, removed: ${removed}, saved: ${savedMB} MB, markdown files updated: ${updatedFiles}`);
 }
 
 main().catch(err => {

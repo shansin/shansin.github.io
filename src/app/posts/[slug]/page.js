@@ -5,6 +5,7 @@ import { formatDate, getShareUrls } from '@/lib/utils';
 import { siteConfig } from '@/lib/config';
 import ShareButtons from '@/components/ShareButtons';
 import ExcalidrawWrapper from '@/components/ExcalidrawWrapper';
+import PostContent from './PostContent';
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
@@ -68,7 +69,7 @@ export default async function Post({ params }) {
                     </div>
                 </header>
 
-                <div className={styles.content} dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+                <PostContent contentHtml={postData.contentHtml} />
                 {postData.hasExcalidraw && <ExcalidrawWrapper />}
 
                 <footer className={styles.footer}>
