@@ -4,13 +4,13 @@ date: 2025-11-25
 tags:
   - local-ai
 coverImage: /images/building-local-ai-powerhouse-2025/dual_gpu_build.webp
-excerpt: "A dual-GPU workstation built for local LLM inference — 32GB of VRAM, no API leash, and the joy of cracking open a PC case again after 20 years."
+excerpt: "A dual-GPU workstation built for local LLM inference. 32GB of VRAM, no API leash, and the joy of building a PC."
 draft: false
 ---
 
 It has been roughly 20 years since I last cracked open a PC case to build a machine from scratch. Back then, we were worried about IDE cables and jumper pins; today, the stakes are a bit different. My goal this time wasn't just to browse the web—I wanted to run LLMs locally.
 
-I was looking for a sandbox for toy projects and experimentation without the leash of a monthly subscription to OpenAI or Anthropic. More importantly, I wanted to "get into the weeds"—fine-tuning models and understanding the hardware bottlenecks firsthand.
+I was looking for a sandbox for toy projects and experimentation without the leash of a monthly subscription to OpenAI or Anthropic. More importantly, I wanted to "get into the weeds": fine-tuning models and understanding the hardware bottlenecks firsthand.
 
 ### The "Sensible" Alternative
 

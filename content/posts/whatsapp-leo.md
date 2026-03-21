@@ -1,5 +1,5 @@
 ---
-title: "Leo - My Zero-Cost, Privacy-First AI Assistant on WhatsApp"
+title: "Leo: My Zero-Cost, Privacy-First AI Assistant on WhatsApp"
 date: 2026-02-22
 tags:
   - local-ai
@@ -7,12 +7,13 @@ tags:
   - privacy
   - agents
 coverImage: /images/whatsapp-leo/leo.webp
-excerpt: "A fully local AI assistant inside WhatsApp — handling queries, calendar, email, and fitness tracking with zero API costs and complete data privacy."
+excerpt: "A fully local AI assistant inside WhatsApp, handling queries, calendar, email, and fitness tracking with zero API costs and complete data privacy."
 draft: false
 ---
-Imagine an assistant that lives in your WhatsApp—handling ChatGPT-style queries, searching the web, managing your calendar, reading your emails, tracking your fitness, and reminding you of important tasks. Now imagine this assistant runs **entirely on your machine**, costs **zero dollars** in API fees, and keeps your data **completely private**.
 
-That's Leo. See it in action:
+$0/month. Runs on your hardware. Lives in WhatsApp.
+
+That's Leo. An AI assistant I built that handles queries, searches the web, manages your calendar, reads your email, tracks your fitness, and delivers a personalized briefing every morning. All from the app you're probably already using to text family and friends.
 
 @[youtube](_m7avpUflfs){width: 45%, aspect-ratio: 9/16}
 
@@ -20,11 +21,12 @@ That's Leo. See it in action:
 
 ## Why I Built This
 
-I already use WhatsApp to connect with family and friends—it's the most popular messaging app on the planet. What if I could manage my digital life on the same surface?
+WhatsApp is already on everyone's phone. It's the most popular messaging app on the planet, and I was already using it to stay connected with family and friends. The question was: what if it could also manage my digital life?
 
-I also wanted:
+I wanted four things:
+
 - **Privacy first**: My data never leaves my machine
-- **Control**: I maintain the logic for workflow, system prompts and model choice.
+- **Control**: I own the logic for workflows, system prompts, and model choice
 - **Zero recurring cost**: No API subscriptions, no token metering
 - **Learn by building**: A real project to deepen my understanding of local LLMs and agents
 
@@ -34,15 +36,21 @@ Leo is the result.
 
 ### Intelligent Conversations
 
-Leo handles all the usual AI assistant tasks—answering questions, brainstorming, deep research, explaining concepts—powered by a local LLM running on your own hardware. Each chat maintains its own conversation memory via SQLite-backed sessions, so Leo remembers what you discussed earlier.
+Leo handles the full range of AI assistant tasks: answering questions, brainstorming, deep research, explaining concepts. Each conversation maintains its own memory via SQLite-backed sessions, so Leo remembers what you discussed earlier.
 
 ### Web Search
 
-Need current information? Leo connects to Brave Search to pull real-time data. Ask about news, look up facts, research topics—all without leaving your primary chat app.
+Need current information? Leo connects to Brave Search for real-time data. Ask about news, look up facts, research any topic.
+
+```
+What's the latest supreme court ruling on Tariffs?
+
+Do a deep research and summarize if Tariffs are good or bad for US economy
+```
 
 ### Google Workspace Integration
 
-Leo becomes a productivity powerhouse with wide-ranging capabilities through Google integration:
+Leo becomes a productivity layer across your entire Google account:
 
 | Service             | Capabilities                                       |
 | ------------------- | -------------------------------------------------- |
@@ -53,13 +61,17 @@ Leo becomes a productivity powerhouse with wide-ranging capabilities through Goo
 | **Google Sheets**   | Read data, get ranges                              |
 | **Google Slides**   | Read presentations                                 |
 
+```
+@leo, am I free this Sat 5pm? if so add 2 hr block for Tom's bday
+```
+
 ### Health & Fitness
 
-Leo connects to Garmin Connect to access your fitness data—sleep patterns, training schedule, workout history, performance trends. This powers personalized health insights in your briefings.
+Leo connects to Garmin Connect to pull your fitness data: sleep patterns, training schedule, workout history, performance trends. This feeds directly into your morning briefings.
 
 ### One-Time Reminders
 
-Never forget anything. Use natural language:
+Use natural language:
 
 ```
 #remindme in 30 minutes to call mom
@@ -67,11 +79,11 @@ Never forget anything. Use natural language:
 #remindme at 12pm Feb 25, 2026 to complete taxes
 ```
 
-Leo parses your request intelligently and messages you at the right time.
+Leo parses your request and messages you at the right time.
 
 ### Recurring Reminders
 
-Build better habits:
+Build habits:
 
 ```
 #reminder add "9pm Sun to Thu" Review and adjust tomorrow's calendar
@@ -83,7 +95,7 @@ Build better habits:
 
 ### Scheduled Briefings
 
-This is where Leo shines. Create automated briefings that deliver exactly what you need, when you need it. You control the prompt and its execution schedule:
+This is the feature I use most. You define a prompt and a schedule; Leo runs it and delivers the results to your WhatsApp:
 
 ```
 #briefing add "Morning Brief" "6:00am everyday" Get today's scheduled training from Garmin, today's calendar events, and unread emails summary
@@ -95,33 +107,23 @@ This is where Leo shines. Create automated briefings that deliver exactly what y
 #briefing remove <id>
 ```
 
-Wake up to a personalized digest—delivered right to WhatsApp.
+Wake up to a personalized digest built from your actual calendar, email, and fitness data.
 
-### Web Search and Google Services
+### Hooks: Bridge to External Programs
 
-```
-@leo, am I free this Sat 5pm? if so add 2 hr block for Tom's bday
+Leo can route messages to any program on your machine through bidirectional named pipes. Each hook creates two FIFOs: one for sending messages to the program, one for receiving responses back.
 
-What's the latest supreme court ruling on Tariffs?
+Trigger with `#hook-name message` or `@hook-name message`. I have hooks for `claude` and `codex`, so I can type `#claude explain quantum computing` in WhatsApp and get a Claude response routed right back into the chat.
 
-Do a deep research and summarize if Tariffs are good or bad for US economy
-```
+This turns Leo into a message router that can bridge WhatsApp to virtually anything running on your machine.
 
-### Hooks — Bridge to External Programs
+### Test Mode
 
-Leo can route messages to external programs and receive responses back through bidirectional named pipes (FIFOs). Each hook creates two pipes: one for sending messages *to* the program, and one for receiving responses *from* it.
+Leo includes a local Gradio UI at `http://127.0.0.1:7860` that bypasses the WhatsApp bridge entirely. It has a model selector to hot-swap Ollama models at runtime and a live system log panel. All background schedulers still run, so you can iterate on prompts without needing your phone.
 
-Trigger a hook with `#hook-name message` or `@hook-name message`. For example, I have hooks for `claude` and `codex`—so I can type `#claude explain quantum computing` in WhatsApp and get a response from Claude, routed right back into the chat.
-
-This turns Leo into a message router that can bridge WhatsApp to virtually any program on your machine.
-
-### Test Mode — Local UI for Development
-
-Leo includes a local **Gradio** chat UI at `http://127.0.0.1:7860` that bypasses the WhatsApp bridge entirely. It features a model selector to hot-swap Ollama models at runtime and a live system log panel. All background schedulers (reminders, briefings) still run—so you can iterate on prompts without needing your phone.
+---
 
 ## Why Zero Cost Actually Works
-
-Here's the breakdown:
 
 | Component                  | Cost                            |
 | -------------------------- | ------------------------------- |
@@ -132,74 +134,82 @@ Here's the breakdown:
 | Garmin data access         | Free                            |
 | Hosting                    | $0 (runs locally)               |
 | **Total**                  | **$0/month**                    |
-My best estimates to electricity costs tend towards less than $10/ year. 
-* Incremental for running service ~0W
-* Spikes during inference- 100w to 300w for a few seconds on 5070 Ti
-* 5060 Ti is slower but even more efficient 
 
-The key insight: **modern open-source LLMs are good enough** for most assistant tasks. Models like GLM-4.7-Flash, gpt-oss:20b, and deepseek-r1:8b run on consumer hardware and deliver excellent results without per-token costs.
+Electricity is the only real cost. My estimates put it well under $10/year:
 
-You already own the hardware—make it work for you :)
+- The service draws ~60W at idle
+- Inference spikes 100-300W for a few seconds on the 5070 Ti
+- The 5060 Ti is slower but even more efficient
+
+The key insight: modern open-source LLMs are good enough for most assistant tasks. Models like GLM-4.7-Flash, gpt-oss:20b, and deepseek-r1:8b run on consumer hardware and deliver strong results without per-token costs.
+
+You already own the hardware. Make it work for you.
+
+---
 
 ## The Privacy Advantage
 
 Leo runs entirely on your local machine:
 
-- **Local LLM**: Powered by Ollama, inference happens on your GPUs
-- **Local Storage**: Messages, reminders, and sessions live in SQLite databases on your device
-- **No Cloud Dependency**: Your conversations never travel to external servers beyond WhatsApp
-- **Your Data, Your Control**: Google, WhatsApp and Garmin tokens stay on your hardware
+- **Local LLM**: Powered by Ollama. Inference happens on your GPUs.
+- **Local storage**: Messages, reminders, and sessions live in SQLite databases on your device.
+- **No cloud dependency**: Your conversations never travel to external servers beyond WhatsApp.
+- **Your credentials, your machine**: Google, WhatsApp, and Garmin tokens stay on your hardware.
+
+---
 
 ## Technical Architecture
 
 @[excalidraw](public/images/whatsapp-leo/arch.excalidraw)
 
-The system is split into two processes that talk over **Unix domain sockets** (paths configurable via `INSTANCE_GUID`), allowing multiple Leo instances on the same machine. The Go bridge handles the WhatsApp protocol while the Python server handles AI reasoning; neither exposes a network port.
+The system splits into two processes that communicate over Unix domain sockets (paths configurable via `INSTANCE_GUID`), which allows multiple Leo instances on the same machine. The Go bridge handles the WhatsApp protocol; the Python server handles AI reasoning. Neither exposes a network port.
 
-### Key Components
+### Go WhatsApp Bridge (`whatsapp-mcp/whatsapp-bridge/`)
 
-**Go WhatsApp Bridge** (`whatsapp-mcp/whatsapp-bridge/`)
-- Built on `whatsmeow` - a Go library implementing WhatsApp's multi-device protocol
-- Heavily modified for performance and to support all Leo usecases
+- Built on `whatsmeow`, a Go library implementing WhatsApp's multi-device protocol
+- Heavily modified for performance and to support all Leo use cases
 - Handles authentication via QR code scanning
 - Manages message storage in SQLite
-- Processes media uploads/downloads (images, videos, audio, documents)
-- Includes custom Ogg Opus parser for voice message duration detection
+- Processes media: images, videos, audio, documents
+- Includes a custom Ogg Opus parser for voice message duration detection
 
-**Python Agent Server** (`agent/`)
+### Python Agent Server (`agent/`)
+
 - Uses OpenAI Agents SDK for orchestration
 - Connects to Ollama via OpenAI-compatible API (`http://localhost:11434/v1`)
 - Agent factory with LRU cache (max 20 agents, 30-minute TTL) for multi-conversation support
-- Natural language time parsing for reminders using an LLM agent
+- Natural language time parsing for reminders via an LLM agent
 - Cron-based scheduling for briefings and recurring reminders
 
-**MCP Servers** 
-- `brave-search-mcp`: Web search capabilities
-- `workspace-mcp`: Google Workspace integration (Docs, Calendar, Gmail, Drive, Sheets, Slides)
+### MCP Servers
+
+Three servers launched as child processes using stdio-based MCP:
+
+- `brave-search-mcp`: Web search
+- `workspace-mcp`: Google Workspace (Docs, Calendar, Gmail, Drive, Sheets, Slides)
 - `garmin-mcp`: Fitness and health data
 
-All three are launched as child processes using **stdio-based MCP** (Model Context Protocol)—they communicate with the agent server over stdin/stdout, not HTTP.
+All three communicate with the agent server over stdin/stdout, not HTTP.
 
 ### Operating Modes
 
-Leo supports two modes:
+1. **Dedicated Number Mode** (`IS_DEDICATED_NUMBER=true`): Responds to all DMs and group mentions. Good for a dedicated Leo phone number.
+2. **Mention Mode**: Only responds when explicitly mentioned (`@leo` or `#leo`). Works with your existing WhatsApp account.
 
-1. **Dedicated Number Mode** (`IS_DEDICATED_NUMBER=true`): Responds to all DMs and group mentions—perfect if you have a dedicated phone number for Leo
+### Access Control
 
-2. **Mention Mode**: Only responds when explicitly mentioned (`@leo` or `#leo`)—works with your existing WhatsApp account
+- **Privileged whitelist** (`ALLOWED_SENDERS`): Only listed phone numbers get Google Workspace, Garmin, reminders, and briefings access. Non-privileged users can still chat and search the web.
+- Unix domain sockets for inter-process communication; no exposed network ports.
+- Thread-local SQLite connections to avoid concurrency issues.
+- Environment-based configuration for all sensitive credentials.
 
-### Access Control & Security
-
-- **Privileged whitelist** (`ALLOWED_SENDERS`): Only listed phone numbers get access to Google Workspace, Garmin, reminders, and briefings. Non-privileged users can still chat and use web search.
-- **Unix domain sockets** for inter-process communication—no network ports exposed
-- **Thread-local SQLite connections** to avoid concurrency issues
-- **Environment-based configuration** for all sensitive credentials
+---
 
 ## Interesting Technical Details
 
 ### Natural Language Time Parsing
 
-The reminder system uses an LLM agent to parse times from natural language. Instead of rigid regex patterns, Leo understands:
+Instead of rigid regex patterns, the reminder system uses an LLM agent to parse times. It handles:
 
 - "in 30 minutes"
 - "tomorrow at 9am"
@@ -218,7 +228,7 @@ Briefings and recurring reminders use `croniter` for flexible scheduling:
 
 ### WhatsApp LID Resolution
 
-WhatsApp uses LID (Linked ID) for privacy—a format that can't be used for sending messages. The Go bridge automatically resolves LID to actual phone numbers for outbound messages.
+WhatsApp uses LID (Linked ID) for privacy, a format that can't be used for sending messages. The Go bridge automatically resolves LID to actual phone numbers for outbound messages.
 
 ### Performance Optimizations
 
@@ -227,11 +237,13 @@ WhatsApp uses LID (Linked ID) for privacy—a format that can't be used for send
 - **Shared environment copy**: Avoids copying 100+ environment variables per request
 - **Singleton OpenAI client**: Reused across all messages
 
+---
+
 ## Getting Started
 
-_I built this on Ubuntu with NVIDIA GPUs, but it should work just the same on Mac and WSL._
+Built on Ubuntu with NVIDIA GPUs, but it should work the same on Mac and WSL.
 
-**Prerequisites:** Python ≥ 3.13, [uv](https://docs.astral.sh/uv/), Go, [Ollama](https://ollama.com), and Node.js/npm.
+**Prerequisites:** Python >= 3.13, [uv](https://docs.astral.sh/uv/), Go, [Ollama](https://ollama.com), and Node.js/npm.
 
 1. Clone the repository
 2. Install Ollama and pull a model: `ollama pull glm-4.7-flash`
@@ -246,25 +258,25 @@ Want to try it without a phone? Run in test mode:
 IS_TEST_MODE=true ./start_services.sh
 ```
 
-Then open `http://127.0.0.1:7860` for the Gradio chat UI.
+Then open `http://127.0.0.1:7860` for the Gradio UI.
+
+---
 
 ## What's Next
 
-Leo is already useful, but there's more to explore:
-
-- **Long-Term memory**: Remember preferences, recall conversations from past
+- **Long-term memory**: Remember preferences, recall past conversations
 - **Multi-modal capabilities**: Image analysis, document understanding
 - **Voice improvements**: Better TTS/STT for seamless voice conversations
 - **RAG on personal data**: Index and search through your own documents
 - **Family/shared mode**: Multiple users with separate contexts
 
-## The Bottom Line
+---
 
-Leo represents a shift in how we think about AI assistants:
+## The Bottom Line
 
 - **Own, don't rent**: Your hardware, your model, your rules
 - **Privacy by design**: Data never leaves your machine
-- **Zero marginal cost**: Chat all day, run 50 briefings—costs nothing extra
+- **Zero marginal cost**: Chat all day, run 50 briefings. Nothing extra.
 - **Meet users where they are**: WhatsApp is already in everyone's pocket
 
 You don't have to choose between convenience and privacy. With Leo, you get both.
@@ -272,4 +284,4 @@ You don't have to choose between convenience and privacy. With Leo, you get both
 ---
 
 *Leo is open source. Your assistant, your data, your control.*
-*this post was updated on 2/28/2026*
+*This post was updated on 2/28/2026*

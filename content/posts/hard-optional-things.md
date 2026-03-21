@@ -1,29 +1,29 @@
 ---
 title: "Optional Hard Things"
 date: "2026-02-04"
-tags: ["growth", "resilience"]
+tags: ["running", "resilience"]
 coverImage: "/images/hard-optional-things/hard-optional-things.webp"
-excerpt: "Modern life decoupled reward from effort. Voluntary hardship — cold showers, heavy lifts, deep work — rewires the equation and builds lasting resilience."
+excerpt: "Modern life decoupled reward from effort. Voluntary hardship rewires the equation and builds lasting resilience."
 draft: false
 ---
 
-Easy things are easy. Paying bills, doing taxes, and feeding yourself are hard, but they are *mandatory* hard things. If you don't do them, the consequences are immediate and severe. But there is something magical about doing **hard optional things**.
+Easy things are easy. Paying bills, doing taxes, feeding yourself. These are hard, but they're *mandatory*. Skip them and the consequences hit fast. But there's something different about doing **hard optional things**.
 
 ## The Effort-Reward Mismatch
 
-For 99% of human history, **reward was inextricably linked to effort**. You hunted to eat. You built shelter to stay warm. You walked miles to find water. Our brains are hard-wired to release dopamine *after* we overcome resistance. The struggle wasn't just a barrier to the reward; it was part of the reward equation.
+For 99% of human history, **reward was linked to effort**. You hunted to eat. You built shelter to stay warm. You walked miles to find water. Our brains release dopamine *after* we overcome resistance. The struggle wasn't just a barrier to the reward. It was part of the reward equation.
 
-In the modern world, we have short-circuited this loop. We have decoupled reward from effort. You can get a dopamine hit (pleasure) without moving a muscle—just swipe your thumb on a glass screen.
+Modern life short-circuited this loop. We decoupled reward from effort. You can get a dopamine hit without moving a muscle. Just swipe your thumb on a glass screen.
 
-This instant gratification confuses our ancient biology. We get the prize without the hunt, the feast without the famine. The result isn't deep happiness; it's a hollow satiety that leaves us craving more. We are addicted to cheap pleasure because we have forgotten how to earn expensive happiness.
+This instant gratification confuses our ancient biology. We get the prize without the hunt, the feast without the famine. The result isn't deep happiness. It's a hollow satiety that leaves us craving more. We're addicted to cheap pleasure because we've forgotten how to earn expensive happiness.
 
 ## Dopamine: The Currency of Pursuit
 
-We often confuse *pleasure* with *happiness*, but they are driven by entirely different mechanisms in the brain.
+We often confuse *pleasure* with *happiness*, but they run on entirely different mechanisms.
 
-**Pleasure** is short-term. It's the hit you get from doom-scrolling, eating sugar, or binge-watching a show. It's cheap dopamine, requiring zero effort. The problem with cheap dopamine is that it spikes fast and crashes hard, leaving you with a craving for more (the addiction loop) and a baseline that slowly lowers over time.
+**Pleasure** is short-term. It's the hit from doom-scrolling, eating sugar, or binge-watching a show. Cheap dopamine, zero effort. The problem: it spikes fast and crashes hard, leaving a craving for more (the addiction loop) and a baseline that slowly drops over time.
 
-**Happiness**, in the deep, contented sense, comes from *effort*. It is the dopamine of **pursuit and achievement**. When you train for a marathon, learn a complex skill, or build a business, you are engaging in a long-term dopamine release that feels like purpose.
+**Happiness**, in the deep, contented sense, comes from *effort*. It's the dopamine of **pursuit and achievement**. Training for a marathon, learning a complex skill, building a business. These engage a long-term dopamine release that feels like purpose.
 
 Choosing hard things rewires your reward system. You stop being a passive consumer of pleasure and become an active creator of your own happiness.
 
@@ -34,23 +34,23 @@ The core trade-off of life is simple:
 > **Easy Now** leads to **Longer Hard Later**.
 > **Hard Now** leads to **Predictable Easy Later**.
 
-If you choose the easy path now—skipping the workout, avoiding the difficult conversation, procrastinating on the project—you are borrowing comfort from your future self. The interest rate on that loan is brutal. It manifests as poor health, lack of skills, and regret.
+If you choose the easy path now, skipping the workout, avoiding the difficult conversation, procrastinating on the project, you're borrowing comfort from your future self. The interest rate on that loan is brutal. It shows up as poor health, lack of skills, and regret.
 
-But when you choose "Strategic Suffering"—voluntary exposure to difficulty—you build resilience. You are training your nervous system to handle stress.
+But when you choose voluntary exposure to difficulty, you build resilience. You train your nervous system to handle stress.
 
 *   **Cold showers** teach you to suppress the panic response.
 *   **Heavy lifting** teaches you that you can bear a load.
 *   **Deep work** teaches you that you can focus in a distracted world.
-*   **Running** teaches you everything there's to know about life.
+*   **Running** teaches you everything there's to know about life- more on this later!
 
-These are optional. No one will fire you for not doing them. But doing them signals to your deepest self: *I am capable. I am strong. I can handle whatever comes.*
+These are optional. No one will fire you for skipping them. But doing them signals something to your deepest self: *I am capable. I am strong. I can handle whatever comes.*
 
 ## The Magic of the Optional
 
-The most powerful thing about optional hardship is precisely that: **it is optional**.
+The most important thing about optional hardship is precisely that: **it is optional**.
 
-When life forces a struggle upon you (a setback, an illness), it is suffering. But when you *choose* the struggle, it is empowerment. You are declaring that you are not a victim of circumstance, but the architect of your own character.
+When life forces a struggle on you, a setback, an illness, it's suffering. But when you *choose* the struggle, it's empowerment. You're not reacting to circumstance. You're building character on purpose.
 
-So, pick one hard optional thing today. Not because you have to, but because you don't. That is where the magic lies.
+Pick one hard optional thing today. Not because you have to, but because you don't.
 
 ![Success through struggle](/images/hard-optional-things/hard-optional-things.webp)

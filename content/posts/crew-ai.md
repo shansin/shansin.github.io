@@ -5,17 +5,15 @@ tags:
   - local-ai
   - agents
 coverImage: /images/crew-ai/crew-ai.webp
-excerpt: "Scaling CrewAI from a simple debate exercise to a fully autonomous software engineering crew — agents that research, code, and review, all running on local GPUs."
+excerpt: "Scaling CrewAI from a simple debate exercise to a fully autonomous software engineering crew, with agents that research, code, and review, all running on local GPUs."
 draft: false
 ---
 
-Building AI agents can feel like herding cats—unpredictable and messy. But what if you could organize them into a structured, efficient workforce?
+Three debaters, a sandboxed coder, a stock picker with memory, and a full engineering team that writes, tests, and reviews its own code. All running on local GPUs.
 
-I recently discovered [CrewAI](https://www.crewai.com/open-source) through this [Udemy course](https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/). In this post, I'll walk through the progression from simple conversations to a fully autonomous software engineering team—all running locally on my GPUs.
+I discovered [CrewAI](https://www.crewai.com/open-source) through this [Udemy course](https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/). This post walks through five levels of increasing complexity, from a toy debate to autonomous software engineering.
 
-If you want to dive straight into the code, you can find it [here](https://github.com/shansin/crewai-agents).
-
-Let's break down this journey of increasing complexity.
+[Github](https://github.com/shansin/crewai-agents)
 
 ---
 
@@ -25,13 +23,13 @@ Let's break down this journey of increasing complexity.
 
 The journey begins with the **Debate** project—the "Hello World" of agent orchestration.
 
-Here, we have three simple agents: two `Debaters` and a `Judge`. The complexity is minimal, but the concept is powerful: **Role-Playing**.
+Here, we have three simple agents: two `Debaters` and a `Judge`. The complexity is minimal, but the core idea matters: **Role-Playing**.
 
 - **The Setup**: One agent proposes an argument, and the other judges it.
-- **Why it matters**: It proves that with just a few lines of YAML configuration, you can create distinct personalities. No complex prompt engineering variables required—just `role`, `goal`, and `backstory`.
+- **The Feature**: Pure prompt-based personalities. No complex prompt engineering variables required—just `role`, `goal`, and `backstory`.
 
 ```yaml
-# config/agents.yaml
+# debate/config/agents.yaml
 
 debater:
   role: A compelling debater
@@ -41,7 +39,7 @@ judge:
   role: Decide the winner...
 ```
 
-*Simplicity Check*: No tools, no memory, just pure LLM-to-LLM interaction.
+**Key Takeaway**: With just a few lines of YAML, you can create distinct personalities without tools or memory—just pure LLM-to-LLM interaction.
 
 **Results:**
 
@@ -78,21 +76,21 @@ Next, we graduate to the **Coder** project. This is where things get real. An ag
 
 Giving an AI unrestricted access to your terminal is terrifying. CrewAI solves this with a simple feature:
 
-- **The Feature**: `code_execution_mode="safe"`.
-- **How it works**: The `Coder` agent can write and execute Python code, but the codebase configures it to run inside a **Docker container**.
+- **The Setup**: The `Coder` agent can write and execute Python code directly.
+- **The Feature**: `code_execution_mode="safe"`. The codebase configures the agent to run code inside a **Docker container**.
 
 ```python
 # coder/crew.py
 
 agent = Agent(
-role="coder",
-allow_code_execution=True,
-code_execution_mode="safe", # Dockerized safety!
-llm="ollama_chat/deepseek-r1:8b"
+    role="coder",
+    allow_code_execution=True,
+    code_execution_mode="safe", # Dockerized safety!
+    llm="ollama_chat/deepseek-r1:8b"
 )
 ```
 
-**Key Lesson**: You can run powerful coding agents (like `deepseek-r1`) locally without risking your host machine.
+**Key Takeaway**: You can run powerful coding agents (like `deepseek-r1`) locally without risking your host machine.
 
 ---
 
@@ -104,12 +102,10 @@ The **Financial Researcher** project introduces **Tools**.
 
 A smart agent is useless if it's cut off from the world. This crew is composed of a `Researcher` and an `Analyst`.
 
-- **The Leap**: The Researcher isn't just hallucinating facts anymore; it's equipped with `SerperDevTool` for live Google searches. No more "I'm sorry, my knowledge cutoff is 2021."
-- **The Workflow**:
-    1. **Researcher** searches the web for real-time data.
-    2. **Analyst** synthesizes that raw data into a markdown report.
+- **The Setup**: A workflow where the `Researcher` searches the web for real-time data, and the `Analyst` synthesizes that raw data into a markdown report.
+- **The Feature**: `SerperDevTool`. The agent isn't just hallucinating facts anymore; it's equipped with tools for live Google searches. No more "I'm sorry, my knowledge cutoff is 2021."
 
-This demonstrates the classic "Research & Write" pattern, perfect for automating daily briefings.
+**Key Takeaway**: This demonstrates the classic "Research & Write" pattern, perfect for automating daily briefings.
 
 ---
 
@@ -117,49 +113,49 @@ This demonstrates the classic "Research & Write" pattern, perfect for automating
 
 **Theme: Advanced Cognition** | **[Code](https://github.com/shansin/crewai-agents/tree/main/stock_picker)**
 
-Now we enter the big leagues with the **Stock Picker**. This project introduces two advanced concepts: **Memory** and **Structured Outputs**.
+Now we enter the big leagues with the **Stock Picker** project. This introduces two advanced concepts: **Memory** and **Structured Outputs**.
 
-1. **Memory (RAG)**: This crew remembers. It uses `LongTermMemory` (SQLite) to store insights across runs and `ShortTermMemory` (RAG) to maintain context. It uses local embeddings (`nomic-embed-text`) to keep everything private.
-2. **Structured Output**: Instead of a wall of text, agents return Pydantic objects.
+- **The Setup**: The crew uses `LongTermMemory` (SQLite) to store insights across runs and `ShortTermMemory` (RAG) to maintain context. It uses local embeddings (`nomic-embed-text`) to keep everything private.
+- **The Feature**: `output_pydantic`. Instead of a wall of text, agents return strictly typed Pydantic objects.
 
 ```python
 # stock_picker/crew.py
 
 class TrendingCompany(BaseModel):
-name: str
-ticker: str
-reason: str
+    name: str
+    ticker: str
+    reason: str
 
 @task(output_pydantic=TrendingCompanyList)
 def find_trending_companies(self): ...
 ```
 
-**Why this is huge**: You can reliably pipe the output into a database or API because the structure is guaranteed.
+**Key Takeaway**: Structured output guarantees you can reliably pipe AI generation into a database or API because the structure is enforced.
 
 ---
 
-## Level 5: The Enterprise (Engineering Team)
+## Level 5: The Enterprise (The Engineering Team)
 
 **Theme: Orchestration & Delegation** | **[Code](https://github.com/shansin/crewai-agents/tree/main/engineering_team)**
 
-Finally, the **Engineering Team**. This is the pinnacle of the experiment.
+Finally, the **Engineering Team** project. This is the pinnacle of the experiment.
 
 It simulates a full software development lifecycle with specialized roles: `Lead`, `Backend Engineer`, `Frontend Engineer`, and `QA`.
 
-- **Context & Dependency**: Tasks are chained. The `Backend Engineer` doesn't start until the `Lead` finishes the design. `QA` waits for the code.
-- **Multi-Model Intelligence**: I assign different models to different brains:
-    - `gpt-oss:20b` for high-level design and leadership.
-    - `qwen3-coder:30b` for the heavy lifting of coding.
+- **The Setup**: Tasks are chained contextually. The `Backend Engineer` doesn't start until the `Lead` finishes the design. `QA` waits for the code.
+- **The Feature**: Multi-Model Intelligence. Different models are routed to different brains (`gpt-oss:20b` for high-level design, `qwen3-coder:30b` for heavy lifting).
 
 ```yaml
+# engineering_team/config/tasks.yaml
+
 backend_engineer:
-output_file: output/{module_name}
+  output_file: output/{module_name}
 
 frontend_engineer:
-output_file: output/app.py
+  output_file: output/app.py
 ```
 
-**The Result**: A crew that takes an idea and outputs a fully tested, functional application with frontend and backend, saved directly to disk.
+**Key Takeaway**: A crew can take an abstract idea and output a fully tested, functional application with frontend and backend, saved directly to disk.
 
 **Requirements:**
 ```
@@ -189,7 +185,7 @@ The system has access to a function get_share_price(symbol) which returns the cu
 
 ---
 
-## Conclusion: The Local Advantage
+## The Local Advantage
 
 What ties all these projects together? **Local Dominance.**
 

@@ -5,7 +5,7 @@ tags:
   - agents
   - claude
 coverImage: /images/claude-lens/cover.webp
-excerpt: A desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics, and more — one window, zero JSON spelunking.
+excerpt: A desktop app that turns ~/.claude/ into a real-time observability dashboard. Teams, costs, conversations, analytics, and more in one window, zero JSON spelunking.
 draft: false
 ---
 
@@ -30,7 +30,7 @@ It's open source, it's free, and if you're running multi-agent Claude Code, you 
 
 ## Why I Built This
 
-For single-agent session, the terminal is fine. But the moment you use multiple sessions or Claude Code's team feature — a lead agent recruiting teammates, assigning tasks, coordinating across files — your visibility drops to zero.
+For single-agent sessions, the terminal is fine. But the moment you use multiple sessions or Claude Code's team feature — a lead agent recruiting teammates, assigning tasks, coordinating across files — your visibility drops to zero.
 
 Here's what "monitoring" looked like before:
 
@@ -196,7 +196,7 @@ A lightweight Node.js main process watches the filesystem with `chokidar`, handl
 ## Get Started
 
 ```bash
-gh repo clone shansin/claude-lens
+git clone https://github.com/shansin/claude-lens.git
 cd claude-lens
 npm install
 npm run dev
