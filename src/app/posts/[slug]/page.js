@@ -5,6 +5,7 @@ import { formatDate, getShareUrls } from '@/lib/utils';
 import { siteConfig } from '@/lib/config';
 import ShareButtons from '@/components/ShareButtons';
 import ExcalidrawWrapper from '@/components/ExcalidrawWrapper';
+import StravaWrapper from '@/components/StravaWrapper';
 import PostContent from './PostContent';
 
 export async function generateMetadata({ params }) {
@@ -71,6 +72,7 @@ export default async function Post({ params }) {
 
                 <PostContent contentHtml={postData.contentHtml} />
                 {postData.hasExcalidraw && <ExcalidrawWrapper />}
+                {postData.hasStrava && <StravaWrapper />}
 
                 <footer className={styles.footer}>
                     <ShareButtons urls={shareUrls} title={postData.title} />

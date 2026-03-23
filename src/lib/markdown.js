@@ -138,9 +138,13 @@ function remarkTweetEmbed() {
     };
 }
 
-// Remark plugin to convert @[strava](ACTIVITY_ID/EMBED_TOKEN) into an embedded iframe.
-// Strava embed URL format: https://www.strava.com/activities/{id}/embed/{token}
-// Get the token from the Strava activity share dialog ("Embed" option).
+// Remark plugin to convert @[strava](ACTIVITY_ID) into Strava's official embed placeholder.
+// The client-side StravaEmbed component loads Strava's embed.js to hydrate these.
+// Usage in markdown: @[strava](17567732669)
+// Remark plugin to convert @[strava](ACTIVITY_ID) into Strava's official embed placeholder.
+// The client-side StravaEmbed component loads Strava's embed.js to hydrate these.
+// Usage in markdown: @[strava](17567732669)
+// Optional config:   @[strava](17567732669){scale: 0.9}
 function remarkStravaEmbed() {
     return (tree) => {
         visit(tree, 'paragraph', (node, index, parent) => {
@@ -166,21 +170,25 @@ function remarkStravaEmbed() {
                 const prefix = textNode.value.slice(0, -1).trim();
                 if (prefix !== '') continue;
 
-                // URL is "ACTIVITY_ID/EMBED_TOKEN"
-                const parts = linkNode.url.split('/');
-                if (parts.length < 2) continue;
-                const activityId = parts[0];
-                const embedToken = parts[1];
+                const activityId = linkNode.url;
+
+                // Check for optional config in a following text node like {scale: 0.9}
+                let scale = '1';
+
+                if (i + 2 < children.length && children[i + 2].type === 'text') {
+                    const configMatch = children[i + 2].value.match(/^\{([^}]+)\}/);
+                    if (configMatch) {
+                        const pairs = configMatch[1].split(',').map(s => s.trim());
+                        for (const pair of pairs) {
+                            const [key, val] = pair.split(':').map(s => s.trim());
+                            if (key === 'scale') scale = val;
+                        }
+                    }
+                }
 
                 const htmlString = `
-        <div class="strava-embed-wrapper">
-          <iframe
-            src="https://www.strava.com/activities/${activityId}/embed/${embedToken}"
-            title="Strava activity"
-            frameborder="0"
-            allowtransparency="true"
-            scrolling="no">
-          </iframe>
+        <div class="strava-embed-wrapper" style="transform: scale(${scale}); transform-origin: top center;">
+          <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="${activityId}" data-style="standard" data-from-embed="false"></div>
         </div>
       `;
 
@@ -334,7 +342,8 @@ export async function getPostData(id) {
             'class', 'id',
             'language', 'className',
             'allow', 'allowfullscreen', 'allowtransparency', 'frameborder', 'referrerpolicy', 'scrolling', 'type', 'controls',
-            'style', 'data-source', 'data-type', 'data-scene'
+            'style', 'data-source', 'data-type', 'data-scene',
+            'data-embed-type', 'data-embed-id', 'data-style', 'data-from-embed'
         ]
     });
 
@@ -350,6 +359,7 @@ export async function getPostData(id) {
         id,
         contentHtml,
         hasExcalidraw: rawHtml.includes('excalidraw-diagram'),
+        hasStrava: rawHtml.includes('strava-embed-placeholder'),
         readingTime,
         ...data,
     };
