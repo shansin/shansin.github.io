@@ -5,7 +5,7 @@ tags:
   - claude
 coverImage: /images/claude-code-mastery-levels/cover.webp
 excerpt: "A field guide to the Dunning-Kruger curve of AI-assisted programming, from denial to mass enlightenment."
-draft: true
+draft: false
 ---
 
 Andrej Karpathy tweeted nine words in February 2025 and accidentally started a religion:
