@@ -116,15 +116,7 @@ function remarkTweetEmbed() {
                 const tweetId = linkNode.url;
 
                 const htmlString = `
-        <div class="tweet-embed-wrapper">
-          <iframe
-            src="https://platform.twitter.com/embed/Tweet.html?id=${tweetId}"
-            title="X (Twitter) post"
-            frameborder="0"
-            scrolling="no"
-            allowtransparency="true">
-          </iframe>
-        </div>
+        <div class="tweet-embed-placeholder" data-tweet-id="${tweetId}"></div>
       `;
 
                 parent.children[index] = {
@@ -343,7 +335,8 @@ export async function getPostData(id) {
             'language', 'className',
             'allow', 'allowfullscreen', 'allowtransparency', 'frameborder', 'referrerpolicy', 'scrolling', 'type', 'controls',
             'style', 'data-source', 'data-type', 'data-scene',
-            'data-embed-type', 'data-embed-id', 'data-style', 'data-from-embed'
+            'data-embed-type', 'data-embed-id', 'data-style', 'data-from-embed',
+            'data-tweet-id'
         ]
     });
 
@@ -359,6 +352,7 @@ export async function getPostData(id) {
         id,
         contentHtml,
         hasExcalidraw: rawHtml.includes('excalidraw-diagram'),
+        hasTweet: rawHtml.includes('tweet-embed-placeholder'),
         hasStrava: rawHtml.includes('strava-embed-placeholder'),
         readingTime,
         ...data,

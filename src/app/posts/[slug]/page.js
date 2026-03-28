@@ -6,6 +6,7 @@ import { siteConfig } from '@/lib/config';
 import ShareButtons from '@/components/ShareButtons';
 import ExcalidrawWrapper from '@/components/ExcalidrawWrapper';
 import StravaWrapper from '@/components/StravaWrapper';
+import TweetWrapper from '@/components/TweetWrapper';
 import PostContent from './PostContent';
 
 export async function generateMetadata({ params }) {
@@ -72,6 +73,7 @@ export default async function Post({ params }) {
 
                 <PostContent contentHtml={postData.contentHtml} />
                 {postData.hasExcalidraw && <ExcalidrawWrapper />}
+                {postData.hasTweet && <TweetWrapper />}
                 {postData.hasStrava && <StravaWrapper />}
 
                 <footer className={styles.footer}>

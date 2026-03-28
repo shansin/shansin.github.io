@@ -132,6 +132,23 @@ title: "Welcome"
 Your markdown content here...
 ```
 
+## 📤 Cross-Posting
+
+A local CLI to sync published posts to **Medium** and **Substack** — no API keys needed.
+
+- **Medium**: Opens "Import a Story" in your browser, auto-importing the post content with a canonical URL back to your site.
+- **Substack**: Copies the post HTML to your clipboard and opens the Substack editor for pasting.
+
+Tracking state is stored in `crossposted.json` to prevent duplicates. Posts can opt out with `crosspost: false` in frontmatter.
+
+```bash
+npm run crosspost                          # Cross-post changed posts to both platforms
+npm run crosspost -- --all                 # Cross-post all published posts
+npm run crosspost -- rest-days             # Cross-post a specific post by slug
+npm run crosspost -- --medium rest-days    # Import a specific post to Medium only
+npm run crosspost -- --dry-run --all       # Preview all posts without acting
+```
+
 ## 🚀 Development
 
 ```bash

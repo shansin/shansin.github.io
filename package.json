@@ -7,7 +7,8 @@
     "build": "node scripts/optimize-images.js && next build",
     "start": "next start",
     "lint": "eslint",
-    "optimize-images": "node scripts/optimize-images.js"
+    "optimize-images": "node scripts/optimize-images.js",
+    "crosspost": "node scripts/crosspost/index.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

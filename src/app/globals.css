@@ -334,18 +334,11 @@ code {
 }
 
 /* X (Twitter) Post Embeds */
-.tweet-embed-wrapper {
+.tweet-embed-placeholder {
   margin: var(--spacing-lg) auto;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  width: 100%;
   max-width: 550px;
-}
-
-.tweet-embed-wrapper iframe {
-  border: none;
-  width: 100%;
-  min-height: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Strava Activity Embeds */
